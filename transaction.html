@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deposits & Withdrawals - WORTHSMONEY INVESTMENTS</title>
+<style>
+  :root{
+    --primary:#0d6efd;
+    --success:#198754;
+    --light:#f8f9fa;
+  }
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:var(--light);
+    margin:0;
+  }
+  header{
+    background:var(--primary);
+    color:#fff;
+    text-align:center;
+    padding:25px 10px;
+    border-radius:0 0 20px 20px;
+  }
+  nav a{
+    color:#fff;text-decoration:none;margin:0 10px;font-weight:bold;
+  }
+  nav a:hover,nav a.active{text-decoration:underline;}
+  main{
+    max-width:1000px;margin:40px auto;background:#fff;padding:30px;
+    border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  }
+  h2{color:var(--primary);text-align:center;}
+  form{
+    max-width:600px;margin:25px auto;text-align:left;
+  }
+  label{display:block;margin-top:15px;font-weight:bold;}
+  input,select{
+    width:100%;padding:10px;margin-top:5px;border-radius:6px;
+    border:1px solid #ccc;font-size:1em;
+  }
+  button{
+    margin-top:20px;padding:12px 20px;border:none;border-radius:8px;
+    background:var(--primary);color:#fff;font-weight:bold;cursor:pointer;
+  }
+  button:hover{opacity:0.9;}
+  .cards{display:flex;flex-wrap:wrap;justify-content:space-around;margin-top:40px;}
+  .card{
+    background:#fff;width:45%;margin:10px;padding:20px;border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);text-align:center;
+  }
+  .card h3{color:var(--primary);margin-bottom:8px;}
+  .card p{font-size:1.3em;font-weight:bold;margin:5px 0;}
+  .message{
+    margin-top:40px;padding:20px;background:#f0f8ff;border-radius:12px;
+    text-align:center;font-size:1.1em;color:#333;
+  }
+  footer{text-align:center;margin:40px 0 20px;color:#555;}
+  @media(max-width:768px){.card{width:100%;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>WORTHSMONEY INVESTMENTS</h1>
+  <p>Smart Investing. Real Returns. Real Security.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="transactions.html" class="active">Deposit & Withdraw</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Deposit & Withdrawal Portal</h2>
+
+  <div class="cards" id="summaryCards"></div>
+
+  <form id="transForm">
+    <label for="transType">Transaction Type:</label>
+    <select id="transType">
+      <option value="deposit">Deposit</option>
+      <option value="withdraw">Withdraw</option>
+    </select>
+
+    <label for="amount">Amount (USD):</label>
+    <input type="number" id="amount" placeholder="Enter amount" required>
+
+    <label for="transNumber">Transaction / Reference Number:</label>
+    <input type="text" id="transNumber" placeholder="Enter number">
+
+    <label for="method">Select Method:</label>
+    <select id="method">
+      <option value="airtel">Airtel Money</option>
+      <option value="mtn">MTN Mobile Money</option>
+      <option value="crypto">Cryptocurrency (BTC, USDT, ETH)</option>
+      <option value="card">Credit / Debit Card</option>
+      <option value="globalpay">Global Pay Card</option>
+    </select>
+
+    <label for="ipAddress">Latest IP Address:</label>
+    <input type="text" id="ipAddress" readonly>
+
+    <button type="button" onclick="simulate()">Submit</button>
+  </form>
+
+  <div class="message">
+    “Invest today for a brighter tomorrow —  
+    let your money work while you rest.”
+  </div>
+</main>
+
+<footer>
+  © 2025 WORTHSMONEY INVESTMENTS AG | Geneva, Switzerland
+</footer>
+
+<script>
+  // sample summary data
+  let latestDeposit = { amount: 2000, date: "2025-11-09" };
+  let totalDeposits = 8500;
+  let latestWithdraw = { amount: 1200, date: "2025-11-05" };
+  let totalWithdraw = 4200;
+
+  function renderSummary(){
+    const cards = document.getElementById("summaryCards");
+    cards.innerHTML = `
+      <div class="card"><h3>Latest Deposit</h3><p>$${latestDeposit.amount.toFixed(2)}</p><small>${new Date(latestDeposit.date).toDateString()}</small></div>
+      <div class="card"><h3>Total Deposits</h3><p>$${totalDeposits.toFixed(2)}</p></div>
+      <div class="card"><h3>Latest Withdrawal</h3><p>$${latestWithdraw.amount.toFixed(2)}</p><small>${new Date(latestWithdraw.date).toDateString()}</small></div>
+      <div class="card"><h3>Total Withdrawn</h3><p>$${totalWithdraw.toFixed(2)}</p></div>
+    `;
+  }
+
+  function simulate(){
+    const type = document.getElementById("transType").value;
+    const amt = parseFloat(document.getElementById("amount").value);
+    const num = document.getElementById("transNumber").value || "N/A";
+    const method = document.getElementById("method").value;
+
+    if(!amt || amt<=0){ alert("Please enter a valid amount."); return; }
+
+    if(type==="deposit"){
+      latestDeposit = { amount: amt, date: new Date().toISOString() };
+      totalDeposits += amt;
+      alert(`✅ Deposit recorded: $${amt.toFixed(2)} via ${method.toUpperCase()} (Ref: ${num})`);
+    } else {
+      latestWithdraw = { amount: amt, date: new Date().toISOString() };
+      totalWithdraw += amt;
+      alert(`💸 Withdrawal recorded: $${amt.toFixed(2)} via ${method.toUpperCase()} (Ref: ${num})`);
+    }
+    renderSummary();
+  }
+
+  // get fake IP (for demo)
+  fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(data => { document.getElementById("ipAddress").value = data.ip; })
+    .catch(()=>{ document.getElementById("ipAddress").value = "Unavailable"; });
+
+  renderSummary();
+</script>
+</body>
+</html>

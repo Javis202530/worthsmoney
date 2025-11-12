@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WORTHSMONEY INVESTMENTS - Dashboard</title>
+
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --secondary: #198754;
+      --light-bg: #f4f6f8;
+      --text-dark: #222;
+      --card-bg: #fff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+    }
+
+    /* HEADER */
+    header {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 35px 15px;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 6px;
+      font-size: 1.05em;
+      opacity: 0.9;
+    }
+
+    nav {
+      margin-top: 12px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 14px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      text-decoration: underline;
+    }
+
+    /* INTRO SECTION */
+    .intro {
+      background: var(--card-bg);
+      margin: 40px auto;
+      max-width: 1000px;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .intro h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.9em;
+    }
+
+    .intro p {
+      line-height: 1.7;
+      font-size: 1.05em;
+      color: #444;
+    }
+
+    /* STATS CARDS */
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 40px auto 10px;
+      max-width: 1000px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      width: 45%;
+      margin: 10px;
+      padding: 25px 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-card h3 {
+      color: var(--primary);
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .stat-card p {
+      margin: 8px 0 0;
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+
+    /* TABLE */
+    .dashboard {
+      background: var(--card-bg);
+      margin: 40px auto;
+      max-width: 1000px;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .dashboard h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1em;
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: var(--primary);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover {
+      background-color: #eef3ff;
+    }
+
+    .empty {
+      text-align: center;
+      color: #777;
+      padding: 25px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #555;
+      padding: 20px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .stat-card { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>WORTHSMONEY INVESTMENTS</h1>
+    <p>Smart Investing. Real Returns. Real Security.</p>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- INTRODUCTION -->
+  <section class="intro">
+    <h2>Welcome to Your Investment Dashboard</h2>
+    <p>
+      This page provides a clear summary of your investment performance with <strong>WORTHSMONEY INVESTMENTS AG</strong>.
+      Here you can view when your account was opened, how much you invested, your current return on investment (ROI),
+      and your profit percentage — updated dynamically as your investment grows.
+    </p>
+    <p>
+      Our Geneva-based platform offers transparent daily earnings with capital growth cycles to ensure
+      both flexibility and long-term stability. Review your returns below.
+    </p>
+  </section>
+
+  <!-- STATISTICS CARDS -->
+  <section class="stats" id="statsCards">
+    <!-- Filled by JavaScript -->
+  </section>
+
+  <!-- INVESTMENT TABLE -->
+  <main>
+    <section class="dashboard">
+      <h2>My Investment Summary</h2>
+
+      <table id="investmentTable">
+        <thead>
+          <tr>
+            <th>Date Opened</th>
+            <th>Amount Invested (USD)</th>
+            <th>ROI (USD)</th>
+            <th>Profit (%)</th>
+          </tr>
+        </thead>
+        <tbody id="investmentBody">
+          <!-- Data loads here -->
+        </tbody>
+      </table>
+
+      <div id="noData" class="empty" style="display: none;">
+        No investment records found.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 WORTHSMONEY INVESTMENTS AG | Plot No. 12, Swiss Investment Tower, Rue du Rhône 50, Geneva, Switzerland</p>
+  </footer>
+
+  <script>
+    // Simulated investment data
+    const investments = [
+      { dateOpened: "2025-11-01", amount: 2000, roi: 2300, profitPercent: 15 },
+      { dateOpened: "2025-10-15", amount: 1000, roi: 1100, profitPercent: 10 },
+      { dateOpened: "2025-09-10", amount: 500, roi: 540, profitPercent: 8 }
+    ];
+
+    const tableBody = document.getElementById("investmentBody");
+    const noData = document.getElementById("noData");
+    const statsCards = document.getElementById("statsCards");
+
+    if (investments.length === 0) {
+      noData.style.display = "block";
+    } else {
+      // Fill table
+      investments.forEach(inv => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${new Date(inv.dateOpened).toDateString()}</td>
+          <td>$${inv.amount.toFixed(2)}</td>
+          <td>$${inv.roi.toFixed(2)}</td>
+          <td>${inv.profitPercent.toFixed(2)}%</td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      // Summary stats
+      const totalInvested = investments.reduce((sum, i) => sum + i.amount, 0);
+      const totalROI = investments.reduce((sum, i) => sum + i.roi, 0);
+      const avgProfit = (
+        investments.reduce((sum, i) => sum + i.profitPercent, 0) / investments.length
+      ).toFixed(2);
+
+      const cards = [
+        { title: "Total Amount Invested", value: `$${totalInvested.toFixed(2)}` },
+        { title: "Total ROI (Returns)", value: `$${totalROI.toFixed(2)}` },
+        { title: "Average Profit Rate", value: `${avgProfit}%` },
+        { title: "Active Investments", value: investments.length }
+      ];
+
+      cards.forEach(card => {
+        const div = document.createElement("div");
+        div.className = "stat-card";
+        div.innerHTML = `<h3>${card.title}</h3><p>${card.value}</p>`;
+        statsCards.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
