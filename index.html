@@ -1,218 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorthsMoney Global Investments</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorthsMoney Global Investments</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <!-- Styles -->
+    <style>
 
-  <style>
-  /* Google Font – Poppins (Premium Clean Look) */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        /* GOOGLE FONT */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-body {
-    font-family: 'Poppins', sans-serif;
-}
+        /* APPLY FONT */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f2f4f8;
+            font-family: 'Poppins', sans-serif;
+            color: #222;
+        }
 
-    /* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #0d6efd, #0948b1);
+            color: white;
+            text-align: center;
+            padding: 35px 18px;
+        }
 
-/* Apply font to entire website */
-body {
-    font-family: 'Poppins', sans-serif;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
 
-    /* BASIC PAGE RESET */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6fa;
-      color: #222;
-    }
+        header p {
+            margin-top: 6px;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
 
-    /* HEADER */
-    header {
-      background: #0d6efd;
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
+        /* NAVIGATION */
+        nav {
+            margin-top: 15px;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 16px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
 
-    /* NAVIGATION */
-    nav {
-      margin-top: 12px;
-    }
+        nav a:hover,
+        nav a.active {
+            text-decoration: underline;
+        }
 
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      margin: 0 14px;
-      font-weight: 600;
-      transition: 0.2s;
-    }
+        /* CARDS */
+        .intro, .dashboard {
+            background: #ffffff;
+            box-shadow: 0px 8px 22px rgba(0,0,0,0.10);
+            padding: 30px;
+            max-width: 900px;
+            margin: 35px auto;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
 
-    nav a:hover,
-    nav a.active {
-      text-decoration: underline;
-    }
+        .intro:hover, .dashboard:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 12px 28px rgba(0,0,0,0.15);
+        }
 
-    /* INTRO SECTION */
-    .intro {
-      background: white;
-      padding: 25px;
-      max-width: 900px;
-      margin: 35px auto;
-      border-radius: 10px;
-      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-    }
+        /* HEADINGS */
+        h2 {
+            font-size: 1.7rem;
+            color: #0948b1;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
 
-    .dashboard {
-      background: white;
-      padding: 25px;
-      max-width: 900px;
-      margin: 30px auto;
-      border-radius: 10px;
-      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-    }
+        /* BUTTON */
+        .button {
+            background: #0d6efd;
+            color: #ffffff;
+            padding: 14px 26px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0px 4px 12px rgba(13,110,253,0.4);
+            letter-spacing: 0.7px;
+        }
 
-    .button {
-      display: inline-block;
-      background: #0d6efd;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 10px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+        .button:hover {
+            background: #0948b1;
+            box-shadow: 0px 6px 16px rgba(13,110,253,0.6);
+            transform: translateY(-2px);
+        }
 
-    .button:hover {
-      background: #0749b8;
-    }
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #0948b1, #0d6efd);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 45px;
+            font-size: 0.95rem;
+        }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #0d6efd;
-      color: white;
-      margin-top: 40px;
-    }
-  </style>
+    </style>
 
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>WORTHSMONEY GLOBAL INVESTMENTS</h1>
-    <p>Smart Investment. Real Returns. Daily Growth.</p>
+    <!-- HEADER -->
+    <header>
+        <h1>WORTHSMONEY GLOBAL INVESTMENTS</h1>
+        <p>Invest Smarter. Grow Daily. Your Wealth, Our Priority.</p>
 
-    <!-- ✅ NAVIGATION BAR -->
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="transactions.html">Deposit & Withdraw</a>
-    </nav>
-  </header>
+        <!-- NAVIGATION -->
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="transactions.html">Deposit & Withdraw</a>
+        </nav>
+    </header>
 
+    <!-- INTRO SECTION -->
+    <section class="intro">
+        <h2>Welcome to WorthsMoney Investments</h2>
+        <p>
+            At WorthsMoney Investments, we believe in empowering individuals with transparent,
+            secure, and sustainable investment opportunities. Our platform is built to help you
+            grow your wealth with confidence, backed by modern technology and responsible financial
+            principles. Every investor deserves a reliable place where their capital is respected,
+            protected, and steadily grown — and that is exactly what we provide.
+        </p>
+    </section>
 
-  <!-- INTRO SECTION -->
-  <section class="intro">
-    <h2>Welcome to WorthsMoney Global Investments Limited </h2>
-    <p>
-      Welcome to WorthsMoney Investments
+    <!-- DASHBOARD SECTION -->
+    <section class="dashboard">
+        <h2>Account Overview</h2>
 
-At WorthsMoney Investments, we believe in empowering individuals with transparent, secure, and sustainable investment opportunities. Our platform is built to help you grow your wealth with confidence, backed by modern technology and responsible financial principles.
+        <p><strong>Date Opened:</strong> <span id="open-date"></span></p>
+        <p><strong>Amount Invested:</strong> $500</p>
+        <p><strong>Current ROI:</strong> 3.0% Daily</p>
+        <p><strong>Total Profit Earned:</strong> $15.00</p>
 
-Every investor deserves a reliable place where their capital is respected, protected, and steadily grown — and that is exactly what we provide.
+        <a href="transactions.html" class="button">Go to Deposit & Withdraw Page</a>
+    </section>
 
-At WorthsMoney Investments, we believe in empowering individuals with transparent, secure, and sustainable investment opportunities. Our platform is built to help you grow your wealth with confidence, backed by modern technology and responsible financial principles.
+    <!-- FOOTER -->
+    <footer>
+        © 2025 WorthsMoney Global Investments — Plot 12B, Rue de Lausanne, Geneva, Switzerland.
+    </footer>
 
-Every investor deserves a reliable place where their capital is respected, protected, and steadily grown — and that is exactly what we provide.
-    </p>
-  </section>
-
-
-  <!-- DASHBOARD SECTION -->
-  <section class="dashboard">
-    <h2>Account Overview</h2>
-
-    <p><strong>Date Opened:</strong> <span id="date"></span></p>
-    <p><strong>Amount Invested:</strong> $500</p>
-    <p><strong>Current ROI:</strong> 3.0% Daily</p>
-    <p><strong>Total Profit Earned:</strong> $15.00</p>
-
-    <a href="transactions.html" class="button">Go to Deposit & Withdraw Page</a>
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer>
-    © 2023 WorthsMoney Global Investments — Geneva, Switzerland
-  </footer>
-
-  <!-- JAVASCRIPT FOR DATE -->
-  <script>
-    document.getElementById("date").textContent = new Date().toLocaleDateString();
-  </script>
+    <!-- DATE SCRIPT -->
+    <script>
+        document.getElementById("open-date").textContent =
+            new Date().toLocaleDateString();
+    </script>
 
 </body>
 </html>
-/* Improve Card Look */
-.intro, .dashboard {
-    border-radius: 14px;
-    padding: 30px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-}
-
-/* Improve buttons */
-.button {
-    padding: 14px 26px;
-    font-size: 1rem;
-    border-radius: 10px;
-    letter-spacing: 0.5px;
-}
-
-/* Improve headings */
-h1, h2 {
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-/* PREMIUM THEME COLORS */
-:root {
-    --primary: #0d6efd;
-    --primary-dark: #0948b1;
-    --gold: #f7c653;
-    --light-bg: #f4f6fb;
-    --card-bg: #ffffff;
-}
-
-/* Beautiful gradient header */
-header {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-}
-
-/* Make footer match premium look */
-footer {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-}
-
-
-
-
-
-
