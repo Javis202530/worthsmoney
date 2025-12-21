@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | WorthMoney Investment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<header class="topbar">
+  <div class="brand">WorthMoney <span>Investment</span></div>
+</header>
+
+<!-- ============ SIGNUP SECTION ============ -->
+<section class="content" style="max-width:500px; padding:60px 20px;">
+  <h2>Create Your Investor Account</h2>
+  <p style="text-align:center; margin-bottom:30px;">
+    Sign up to start earning daily returns on your investment.
+  </p>
+
+  <form id="signupForm" class="plan">
+    <label>Full Name</label>
+    <input type="text" required placeholder="John Doe" />
+
+    <label>Email Address</label>
+    <input type="email" required placeholder="you@example.com" />
+
+    <label>Password</label>
+    <input type="password" required placeholder="Create a strong password" />
+
+    <label>Confirm Password</label>
+    <input type="password" required placeholder="Confirm password" />
+
+    <button type="submit" style="width:100%; margin-top:20px;">Create Account</button>
+  </form>
+
+  <p style="text-align:center; margin-top:20px;">
+    Already have an account?
+    <a href="login.html" style="color:#3fa9f5;">Login here</a>
+  </p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-pro">
+  <p>© 2025 WorthMoney Investment</p>
+</footer>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Account created successfully! You can now log in.');
+    window.location.href = 'login.html';
+  });
+</script>
+
+</body>
+</html>
