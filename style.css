@@ -231,3 +231,68 @@ button {
   padding: 20px;
   font-size: 0.9rem;
 }
+/* ===== FOUNDATION & INVEST SECTION FIX ===== */
+
+:root {
+  --primary: #0f2a44;
+  --accent: #1e90ff;
+  --soft-bg: #f5f7fa;
+  --text-dark: #1f2933;
+  --text-muted: #6b7280;
+}
+
+.foundation {
+  background: var(--soft-bg);
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 40px auto 60px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.foundation h3 {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.foundation p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto 25px;
+  line-height: 1.6;
+}
+
+.action-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--accent);
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  opacity: 0.9;
+}
+
