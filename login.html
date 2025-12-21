@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Access | WorthMoney Investment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<header class="topbar">
+  <div class="brand">WorthMoney <span>Investment</span></div>
+</header>
+
+<!-- ============ AUTH CONTAINER ============ -->
+<section class="content" style="max-width:1000px; padding:60px 20px;">
+  <h2 style="text-align:center; margin-bottom:10px;">Investor Account Access</h2>
+  <p style="text-align:center; margin-bottom:40px;">
+    Create an account or log in to manage your investments, deposits, and daily returns.
+  </p>
+
+  <!-- ===== AUTH BOXES ===== -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px;">
+
+    <!-- SIGN UP -->
+    <div class="plan">
+      <h3>Create Account</h3>
+      <form id="signupForm">
+        <label>Full Name</label>
+        <input type="text" required placeholder="John Doe" />
+
+        <label>Email Address</label>
+        <input type="email" required placeholder="you@example.com" />
+
+        <label>Password</label>
+        <input type="password" required placeholder="Create password" />
+
+        <label>Confirm Password</label>
+        <input type="password" required placeholder="Confirm password" />
+
+        <label style="font-size:0.9rem;">
+          <input type="checkbox" required /> I agree to the <a href="#">Terms & Risk Disclosure</a>
+        </label>
+
+        <button type="submit" style="width:100%; margin-top:16px;">Create Account</button>
+      </form>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="plan">
+      <h3>Login</h3>
+      <form id="loginForm">
+        <label>Email Address</label>
+        <input type="email" required placeholder="you@example.com" />
+
+        <label>Password</label>
+        <input type="password" required placeholder="Enter password" />
+
+        <button type="submit" style="width:100%; margin-top:16px;">Login</button>
+      </form>
+
+      <div style="margin-top:12px; text-align:right;">
+        <a href="#" style="font-size:0.9rem; color:#6b7280;">Forgot password?</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== WHAT YOU CAN DO AFTER LOGIN ===== -->
+  <div class="content alt" style="margin-top:50px; padding:40px 20px;">
+    <h3 style="text-align:center;">After Login You Can</h3>
+    <div class="features">
+      <div class="feature">💰 Make deposits & choose investment plans</div>
+      <div class="feature">📊 View your dashboard & daily ROI</div>
+      <div class="feature">📁 Track transactions & earnings history</div>
+      <div class="feature">🔐 Securely manage your account</div>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+      <button onclick="location.href='deposit.html'">Go to Deposit</button>
+      <button class="secondary" onclick="location.href='dashboard.html'">View Dashboard</button>
+    </div>
+  </div>
+
+  <!-- ===== LEGAL NOTICE ===== -->
+  <div style="margin-top:40px; font-size:0.85rem; color:#6b7280; text-align:center;">
+    <p>
+      Investing involves risk. Daily returns are estimates and not guaranteed. Please
+      review our terms and risk disclosure before investing.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-pro">
+  <p>© 2025 WorthMoney Investment</p>
+</footer>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Account created successfully. Please log in to continue.');
+  });
+    alert('Account created successfully. You can now log in.');
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Login successful. Redirecting to deposit page.');
+    window.location.href = 'deposit.html';
+  });
+</script>
+
+</body>
+</html>
