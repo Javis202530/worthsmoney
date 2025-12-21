@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Account | WorthMoney Investment</title>
+  <title>Account Access | WorthMoney Investment</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,33 +13,54 @@
   <div class="brand">WorthMoney <span>Investment</span></div>
 </header>
 
-<!-- ============ SIGNUP SECTION ============ -->
-<section class="content" style="max-width:500px; padding:60px 20px;">
-  <h2>Create Your Investor Account</h2>
-  <p style="text-align:center; margin-bottom:30px;">
-    Sign up to start earning daily returns on your investment.
+<!-- ============ AUTH CONTAINER ============ -->
+<section class="content" style="max-width:900px; padding:60px 20px;">
+  <h2 style="text-align:center; margin-bottom:10px;">Investor Account Access</h2>
+  <p style="text-align:center; margin-bottom:40px;">
+    Create an account or log in to start investing.
   </p>
 
-  <form id="signupForm" class="plan">
-    <label>Full Name</label>
-    <input type="text" required placeholder="John Doe" />
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px;">
 
-    <label>Email Address</label>
-    <input type="email" required placeholder="you@example.com" />
+    <!-- ===== SIGN UP ===== -->
+    <div class="plan">
+      <h3 style="margin-bottom:20px;">Create Account</h3>
+      <form id="signupForm">
+        <label>Full Name</label>
+        <input type="text" required placeholder="John Doe" />
 
-    <label>Password</label>
-    <input type="password" required placeholder="Create a strong password" />
+        <label>Email Address</label>
+        <input type="email" required placeholder="you@example.com" />
 
-    <label>Confirm Password</label>
-    <input type="password" required placeholder="Confirm password" />
+        <label>Password</label>
+        <input type="password" required placeholder="Create password" />
 
-    <button type="submit" style="width:100%; margin-top:20px;">Create Account</button>
-  </form>
+        <label>Confirm Password</label>
+        <input type="password" required placeholder="Confirm password" />
 
-  <p style="text-align:center; margin-top:20px;">
-    Already have an account?
-    <a href="login.html" style="color:#3fa9f5;">Login here</a>
-  </p>
+        <button type="submit" style="width:100%; margin-top:16px;">Create Account</button>
+      </form>
+    </div>
+
+    <!-- ===== LOGIN ===== -->
+    <div class="plan">
+      <h3 style="margin-bottom:20px;">Login</h3>
+      <form id="loginForm">
+        <label>Email Address</label>
+        <input type="email" required placeholder="you@example.com" />
+
+        <label>Password</label>
+        <input type="password" required placeholder="Enter password" />
+
+        <button type="submit" style="width:100%; margin-top:16px;">Login</button>
+      </form>
+
+      <div style="margin-top:12px; text-align:right;">
+        <a href="#" style="font-size:0.9rem; color:#6b7280;">Forgot password?</a>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
@@ -50,8 +71,13 @@
 <script>
   document.getElementById('signupForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Account created successfully! You can now log in.');
-    window.location.href = 'login.html';
+    alert('Account created successfully. You can now log in.');
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Login successful. Redirecting to deposit page.');
+    window.location.href = 'deposit.html';
   });
 </script>
 
