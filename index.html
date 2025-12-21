@@ -36,12 +36,17 @@
   <div class="metric"><h2>$3.5M+</h2><p>Managed</p></div>
 </section>
 
-<!-- ============ ABOUT (SHORT) ============ -->
+<!-- ============ ABOUT (FOUNDING STORY) ============ -->
 <section class="content" style="padding:50px 20px;">
-  <h2>About Us</h2>
+  <h2>Our Foundation</h2>
   <p>
-    WorthMoney Investment is a real estate investment firm providing secure,
-    transparent, and professionally managed property investment opportunities.
+    WorthMoney Investment was founded in <strong>2022</strong> with a clear goal: to make
+    real estate–based investing accessible, transparent, and rewarding for everyday
+    investors. What began as a small capital pooling initiative grew into a structured
+    investment platform after recognizing the demand for disciplined, short-term
+    property-backed returns. Today, WorthMoney Investment focuses on sustainable growth,
+    capital protection, and consistent daily returns supported by active asset management
+    and strict risk controls.
   </p>
 </section>
 
@@ -56,25 +61,45 @@
   </div>
 </section>
 
-<!-- ============ PLANS (COMPACT GRID) ============ -->
+<!-- ============ DAILY ROI PLANS ============ -->
 <section class="content" style="padding:50px 20px;">
-  <h2>Investment Plans</h2>
+  <h2>Daily Return Investment Plans</h2>
   <div class="plans">
     <div class="plan">
-      <h3>Starter</h3>
-      <p>$100 Minimum</p>
-      <strong>8–10% ROI</strong>
+      <h3>Entry Plan</h3>
+      <p>$10 – $50</p>
+      <strong>1.25% Daily ROI</strong>
+    </div>
+    <div class="plan">
+      <h3>Starter Plus</h3>
+      <p>$50 – $150</p>
+      <strong>2.5% Daily ROI</strong>
     </div>
     <div class="plan highlight">
       <h3>Growth</h3>
-      <p>$1,000 Minimum</p>
-      <strong>12–15% ROI</strong>
+      <p>$151 – $500</p>
+      <strong>3% Daily ROI</strong>
     </div>
     <div class="plan">
-      <h3>Premium</h3>
-      <p>$5,000 Minimum</p>
-      <strong>18–22% ROI</strong>
+      <h3>Advanced</h3>
+      <p>$501 – $1,000</p>
+      <strong>5% Daily ROI</strong>
     </div>
+  </div>
+</section>
+
+<!-- ============ INVESTOR AMOUNT INPUT ============ -->
+<section class="content alt" style="padding:50px 20px;">
+  <h2>Investor Amount</h2>
+  <p style="text-align:center; margin-bottom:20px;">Enter an amount to see your daily return</p>
+  <div class="features">
+    <div class="feature">
+      <input type="number" id="amount" placeholder="Enter USD amount" style="width:100%; padding:12px; font-size:1rem;" oninput="calculateROI()" />
+    </div>
+    <div class="feature" id="roiResult">Daily ROI: $0.00</div>
+  </div>
+  <div style="text-align:center; margin-top:20px;">
+    <button onclick="location.href='deposit.html'">Proceed to Invest</button>
   </div>
 </section>
 
@@ -90,6 +115,19 @@
 </footer>
 
 <script>
+function calculateROI() {
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  let rate = 0;
+
+  if (amount >= 10 && amount <= 50) rate = 0.0125;
+  else if (amount > 50 && amount <= 150) rate = 0.025;
+  else if (amount > 150 && amount <= 500) rate = 0.03;
+  else if (amount > 500 && amount <= 1000) rate = 0.05;
+
+  const roi = amount * rate;
+  document.getElementById('roiResult').innerText = `Daily ROI: $${roi.toFixed(2)}`;
+}
+
 function toggleMenu() {
   document.getElementById('menu').classList.toggle('open');
 }
