@@ -31,7 +31,10 @@
         <input type="text" required placeholder="John Doe" />
 
         <label>Email Address</label>
-        <input type="email" required placeholder="you@example.com" />
+        <input type="email" placeholder="you@example.com" />
+
+        <label>Phone Number</label>
+        <input type="tel" required placeholder="e.g. +256 7XXXXXXXX" />
 
         <label>Password</label>
         <input type="password" required placeholder="Create password" />
@@ -51,8 +54,8 @@
     <div class="plan">
       <h3>Login</h3>
       <form id="loginForm">
-        <label>Email Address</label>
-        <input type="email" required placeholder="you@example.com" />
+        <label>Email or Phone Number</label>
+        <input type="text" required placeholder="Email address or phone number" />
 
         <label>Password</label>
         <input type="password" required placeholder="Enter password" />
@@ -106,6 +109,9 @@
 
   document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    alert('Login successful using email or phone number. Redirecting to deposit page.');
+    window.location.href = 'deposit.html';
+  });
     alert('Login successful. Redirecting to deposit page.');
     window.location.href = 'deposit.html';
   });
