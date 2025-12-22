@@ -92,9 +92,77 @@
   // 👇 PASTE addTx + renderTransactions HERE
 </script>
 
-</body>
-</html>
+<<!-- Deposit / Withdraw buttons -->
+<button onclick="addTx('Deposit', 50)">Deposit</button>
+<button onclick="addTx('Withdraw', 20)">Withdraw</button>
+
+<!-- Transaction history table -->
+<table>
+  <tbody id="txTable"></tbody>
+</table>
+
+<!-- ✅ PASTE THE CODE BELOW -->
+<script>
+  function addTx(type, amount, status = 'Pending') {
+    const txId = Date.now();
+
+    const transaction = {
+      id: txId,
+      type: type,
+      amount: amount,
+      status: status,
+      date: new Date().toLocaleDateString()
+    };
+
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    transactions.unshift(transaction);
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+
+    if (status === 'Pending') {
+      let pendingTx = JSON.parse(localStorage.getItem('pendingTx')) || [];
+      pendingTx.push(transaction);
+      localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
+    }
+
+    renderTransactions();
+  }
+
+  function renderTransactions() {
+    const txTable = document.getElementById('txTable');
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+    txTable.innerHTML = '';
+
+    if (transactions.length === 0) {
+      txTable.innerHTML = `<tr><td colspan="4">No transactions</td></tr>`;
+      return;
+    }
+
+    transactions.forEach(tx => {
+      let statusClass = '';
+      if (tx.status === 'Success') statusClass = 'status-success';
+      if (tx.status === 'Pending') statusClass = 'status-pending';
+      if (tx.status === 'Declined') statusClass = 'status-declined';
+
+      txTable.innerHTML += `
+        <tr>
+          <td>${tx.date}</td>
+          <td>${tx.type}</td>
+          <td>$${tx.amount}</td>
+          <td class="${statusClass}">${tx.status}</td>
+        </tr>
+      `;
+    });
+  }
+
+  renderTransactions();
+</script>
 
 </body>
 </html>
+
+
+</body>
+</html>
+
 
