@@ -80,8 +80,15 @@ ctions.html'">Transactions</button>
 <footer class="footer-pro">
   © 2025 WorthMoney Investment
 </footer>
+<script>
+  // Load confirmed balance only
+  const balanceEl = document.getElementById('balanceAmount');
+  const storedBalance = localStorage.getItem('balance') || '0.00';
+  balanceEl.textContent = `$${storedBalance}`;
+</script>
 
 </body>
 </html>
+
 
 
