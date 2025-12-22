@@ -283,6 +283,37 @@ function confirmLogout() {
 loadBalance();
 renderTransactions();
 </script>
+<script>
+  function createInvestment(amount) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) return;
+
+    const rate =
+      amount >= 10 && amount <= 49 ? 0.0125 :
+      amount >= 50 && amount <= 150 ? 0.025 :
+      amount >= 151 && amount <= 500 ? 0.03 :
+      amount >= 501 && amount <= 1000 ? 0.05 : 0;
+
+    let investments = JSON.parse(localStorage.getItem("investments")) || [];
+
+    investments.push({
+      userId: user.id,
+      amount,
+      rate,
+      status: "Pending",
+      totalEarned: 0,
+      startDate: null,
+      lastRoiDate: null
+    });
+
+    localStorage.setItem("investments", JSON.stringify(investments));
+    alert("Investment submitted for admin approval");
+  }
+</script>
 
 </body>
 </html>
+
+</body>
+</html>
+
