@@ -117,7 +117,10 @@
     localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
 
     renderAdminTx();
+    loadAdminData();
+
   }
+  
 </script>
 
     <script>
@@ -155,6 +158,8 @@ function approveTx(index) {
   pendingTx.splice(index, 1);
   localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
   renderAdminTx();
+  loadAdminData();
+
 }
 </script>
 
@@ -288,6 +293,7 @@ function approveTx(index) {
 
 
 </html>
+
 
 
 
