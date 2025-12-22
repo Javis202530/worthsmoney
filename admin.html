@@ -253,5 +253,69 @@ function adminLogout() {
 renderAdminTable();
 </script>
 
+  <script>
+/* ===== INVESTMENTS ===== */
+function getInvestments() {
+  return JSON.parse(localStorage.getItem("investments")) || [];
+}
+
+function saveInvestments(inv) {
+  localStorage.setItem("investments", JSON.stringify(inv));
+}
+
+function renderInvestments() {
+  const table = document.getElementById("investmentTable");
+  const investments = getInvestments();
+  table.innerHTML = "";
+
+  if (investments.length === 0) {
+    table.innerHTML = "<tr><td colspan='6'>No investments found</td></tr>";
+    return;
+  }
+
+  investments.forEach((inv, index) => {
+    table.innerHTML += `
+      <tr>
+        <td>${inv.userId}</td>
+        <td>$${inv.amount}</td>
+        <td>${(inv.rate * 100).toFixed(2)}%</td>
+        <td>$${inv.totalEarned.toFixed(2)}</td>
+        <td>${inv.status}</td>
+        <td>
+          ${
+            inv.status === "Pending"
+            ? `<button class="approve" onclick="approveInvestment(${index})">Approve</button>`
+            : inv.status === "Active"
+            ? `<button class="decline" onclick="closeInvestment(${index})">Close</button>`
+            : "—"
+          }
+        </td>
+      </tr>
+    `;
+  });
+}
+
+/* ===== APPROVE ===== */
+function approveInvestment(index) {
+  let investments = getInvestments();
+  investments[index].status = "Active";
+  investments[index].startDate = new Date().toLocaleDateString();
+  saveInvestments(investments);
+  renderInvestments();
+}
+
+/* ===== CLOSE ===== */
+function closeInvestment(index) {
+  let investments = getInvestments();
+  investments[index].status = "Closed";
+  saveInvestments(investments);
+  renderInvestments();
+}
+
+/* INIT */
+renderInvestments();
+</script>
+
 </body>
 </html>
+
