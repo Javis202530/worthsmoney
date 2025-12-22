@@ -136,7 +136,21 @@
 
   loadDashboard();
 </script>
+<script>
+  function logout() {
+    // remove logged-in user
+    localStorage.removeItem("user");
+
+    // OPTIONAL: also clear admin flag if any
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("adminExpiry");
+
+    // redirect to home page
+    window.location.href = "index.html";
+  }
+</script>
 
 </body>
 </html>
+
 
