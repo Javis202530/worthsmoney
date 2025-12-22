@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | WorthMoney Investment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <div class="brand">WorthMoney <span>Investment</span></div>
+  <nav class="dash-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="deposit.html">Deposit</a>
+    <a href="transactions.html">Transactions</a>
+    <a href="index.html">Logout</a>
+  </nav>
+</header>
+
+<!-- ===== DASHBOARD ===== -->
+<section class="dashboard">
+  <h2>Welcome, Investor</h2>
+  <p class="muted">Account overview and daily returns</p>
+
+  <!-- ===== STATS ===== -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h4>Account Balance</h4>
+      <p class="amount">$0.00</p>
+    </div>
+    <div class="stat-card">
+      <h4>Active Investment</h4>
+      <p class="amount">$0.00</p>
+    </div>
+    <div class="stat-card">
+      <h4>Daily ROI</h4>
+      <p class="amount">$0.00</p>
+    </div>
+    <div class="stat-card">
+      <h4>Total Earnings</h4>
+      <p class="amount">$0.00</p>
+    </div>
+  </div>
+
+  <!-- ===== ACTIONS ===== -->
+  <div class="dashboard-actions">
+    <button onclick="location.href='deposit.html'">Make Deposit</button>
+    <button class="secondary" onclick="location.href='transactions.html'">View Transactions</button>
+  </div>
+
+  <!-- ===== RECENT ACTIVITY ===== -->
+  <div class="recent-activity">
+    <h3>Recent Activity</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>—</td>
+          <td>No activity yet</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-pro">
+  © 2025 WorthMoney Investment
+</footer>
+
+</body>
+</html>
