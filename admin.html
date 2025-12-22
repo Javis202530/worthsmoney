@@ -240,16 +240,20 @@ function approveTx(index) {
     balance += parseFloat(tx.amount);
   }
 
-  if (tx.type === "Withdraw") {
-    if (parseFloat(tx.amount) > balance) {
-      alert("Cannot approve withdrawal: insufficient balance");
-      return;
-    }
-    balance -= parseFloat(tx.amount);
+ if (tx.type === "Withdraw") {
+  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
+
+  if (parseFloat(tx.amount) > locked) {
+    alert("Locked balance mismatch");
+    return;
   }
 
-  localStorage.setItem("balance", balance.toFixed(2));
-  tx.status = "Approved";
+  locked -= parseFloat(tx.amount);
+  balance -= parseFloat(tx.amount);
+
+  localStorage.setItem("lockedBalance", locked.toFixed(2));
+}
+
 
   saveTransactions(txs);
   renderAdminTable();
@@ -338,6 +342,7 @@ renderInvestments();
 
 </body>
 </html>
+
 
 
 
