@@ -178,9 +178,35 @@ ctions.html'">Transactions</button>
 
   applyDailyROI();
 </script>
+<script>
+  function renderRoiHistory() {
+    const roiTable = document.getElementById('roiTable');
+    const history = JSON.parse(localStorage.getItem('roiHistory')) || [];
+
+    roiTable.innerHTML = '';
+
+    if (history.length === 0) {
+      roiTable.innerHTML = `<tr><td colspan="3">No earnings yet</td></tr>`;
+      return;
+    }
+
+    history.forEach(row => {
+      roiTable.innerHTML += `
+        <tr>
+          <td>${row.date}</td>
+          <td>${row.rate}</td>
+          <td>$${row.profit}</td>
+        </tr>
+      `;
+    });
+  }
+
+  renderRoiHistory();
+</script>
 
 </body>
 </html>
+
 
 
 
