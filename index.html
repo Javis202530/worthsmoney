@@ -2,155 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WorthMoney Investment | Real Estate Investment Firm</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorthMoney Investment</title>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1d3a;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: #08162e;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .cta-buttons button {
+      padding: 14px 26px;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #f1c40f;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #08162e;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ============ TOP NAV ============ -->
-<header class="topbar">
-  <div class="brand">WorthMoney <span>Investment</span></div>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-</header>
-
-<nav id="menu" class="nav-drawer">
-  <a href="index.html">Home</a>
-  <a href="deposit.html">Deposit</a>
-  <a href="about.html">About</a>
-</nav>
-
-<!-- ============ HERO (COMPACT) ============ -->
-<section class="hero-pro" style="padding:90px 20px;">
-  <div class="hero-content">
-    <h1>Smart Real Estate Investments</h1>
-    <p>Professional property-backed investments with structured daily returns.</p>
-    <div class="hero-actions">
-      <button onclick="location.href='signup.html'">Start Investing</button>
-      <button class="secondary" onclick="location.href='login.html'">Login</button>
-      <button class="secondary" onclick="location.href='signup.html'">Create Account</button>
-    </div>
-
-<!-- ============ SNAPSHOT BAR ============ -->
-<section class="metrics">
-  <div class="metric"><h2>2022</h2><p>Founded</p></div>
-  <div class="metric"><h2>1,200+</h2><p>Clients</p></div>
-  <div class="metric"><h2>$3.5M+</h2><p>Managed</p></div>
-</section>
-
-<!-- ============ ABOUT (FOUNDING STORY) ============ -->
-<section class="content" style="padding:50px 20px;">
-  <h2>Our Foundation</h2>
-  <p>
-    WorthMoney Investment was founded in <strong>2022</strong> with a clear goal: to make
-    real estate–based investing accessible, transparent, and rewarding for everyday
-    investors. What began as a small capital pooling initiative grew into a structured
-    investment platform after recognizing the demand for disciplined, short-term
-    property-backed returns. Today, WorthMoney Investment focuses on sustainable growth,
-    capital protection, and consistent daily returns supported by active asset management
-    and strict risk controls.
-  </p>
-</section>
-
-<!-- ============ ACCOUNT FEATURES ============ -->
-<section class="content alt" style="padding:50px 20px;">
-  <h2>Investor Accounts</h2>
-  <div class="features">
-    <div class="feature">Secure personal accounts</div>
-    <div class="feature">Clear transaction history</div>
-    <div class="feature">Automated ROI tracking</div>
-    <div class="feature">Flexible deposits</div>
-  </div>
-</section>
-
-<!-- ============ DAILY ROI PLANS ============ -->
-<section class="content" style="padding:50px 20px;">
-  <h2>Daily Return Investment Plans</h2>
-  <div class="plans">
-    <div class="plan">
-      <h3>Entry Plan</h3>
-      <p>$10 – $50</p>
-      <strong>1.25% Daily ROI</strong>
-    </div>
-    <div class="plan">
-      <h3>Starter Plus</h3>
-      <p>$50 – $150</p>
-      <strong>2.5% Daily ROI</strong>
-    </div>
-    <div class="plan highlight">
-      <h3>Growth</h3>
-      <p>$151 – $500</p>
-      <strong>3% Daily ROI</strong>
-    </div>
-    <div class="plan">
-      <h3>Advanced</h3>
-      <p>$501 – $1,000</p>
-      <strong>5% Daily ROI</strong>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INVESTOR AMOUNT INPUT ============ -->
-<section class="content alt" style="padding:50px 20px;">
-  <h2>Investor Amount</h2>
-  <p style="text-align:center; margin-bottom:20px;">Enter an amount to see your daily return</p>
-  <div class="features">
-    <div class="feature">
-      <input type="number" id="amount" placeholder="Enter USD amount" style="width:100%; padding:12px; font-size:1rem;" oninput="calculateROI()" />
-    </div>
-    <div class="feature" id="roiResult">Daily ROI: $0.00</div>
-  </div>
-  <div style="text-align:center; margin-top:20px;">
-    <button onclick="location.href='deposit.html'">Proceed to Invest</button>
-  </div>
-</section>
-
-<!-- ============ CTA (SHORT) ============ -->
-<section class="cta-pro" style="padding:60px 20px;">
-  <h2>Ready to Start Earning Daily Returns?</h2>
-  <p>Create an account or log in to begin investing.</p>
-  <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-    <button onclick="location.href='signup.html'">Create Account</button>
-    <button class="secondary" onclick="location.href='login.html'">Login</button>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer-pro">
-  <p>© 2025 WorthMoney Investment</p>
-</footer>
-
-<script>
-function calculateROI() {
-  const amount = parseFloat(document.getElementById('amount').value) || 0;
-  let rate = 0;
-
-  if (amount >= 10 && amount <= 50) rate = 0.0125;
-  else if (amount > 50 && amount <= 150) rate = 0.025;
-  else if (amount > 150 && amount <= 500) rate = 0.03;
-  else if (amount > 500 && amount <= 1000) rate = 0.05;
-
-  const roi = amount * rate;
-  document.getElementById('roiResult').innerText = `Daily ROI: $${roi.toFixed(2)}`;
-}
-
-function toggleMenu() {
-  document.getElementById('menu').classList.toggle('open');
-}
-</script>
-<a href="auth.html">Start Investing</a>
-    
+<!-- ✅ AUTO REDIRECT IF LOGGED IN -->
 <script>
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) {
-    // optional: auto-send logged in users to dashboard
-    // window.location.href = "dashboard.html";
+    window.location.href = "dashboard.html";
+  }
+</script>
+
+<header>
+  <div class="brand">WorthMoney Investment</div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="auth.html">Login</a>
+    <a href="auth.html">Create Account</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Smart Daily Investment Returns</h1>
+  <p>
+    WorthMoney Investment is a professional ROI-based investment platform
+    offering secure daily returns. Start investing with confidence and
+    track your earnings transparently.
+  </p>
+
+  <div class="cta-buttons">
+    <button class="btn-primary" onclick="goStart()">Start Investing</button>
+    <button class="btn-outline" onclick="goLogin()">Login</button>
+  </div>
+</section>
+
+<footer>
+  © 2025 WorthMoney Investment — All Rights Reserved
+</footer>
+
+<script>
+  function goStart() {
+    window.location.href = "auth.html";
+  }
+
+  function goLogin() {
+    window.location.href = "auth.html";
   }
 </script>
 
 </body>
 </html>
-
-
-
-
