@@ -91,13 +91,18 @@
 
 <body>
 
-<!-- ✅ AUTO REDIRECT IF LOGGED IN -->
 <script>
+function startInvesting() {
   const user = JSON.parse(localStorage.getItem("user"));
+
   if (user) {
     window.location.href = "dashboard.html";
+  } else {
+    window.location.href = "auth.html";
   }
+}
 </script>
+
 
 <header>
   <div class="brand">WorthMoney Investment</div>
@@ -117,7 +122,7 @@
   </p>
 
   <div class="cta-buttons">
-    <button class="btn-primary" onclick="goStart()">Start Investing</button>
+    <button onclick="startInvesting()">Start Investing</button>
     <button class="btn-outline" onclick="goLogin()">Login</button>
   </div>
 </section>
@@ -138,3 +143,4 @@
 
 </body>
 </html>
+
