@@ -53,6 +53,18 @@
       <p class="amount">$0.00</p>
     </div>
   </div>
+<h3>Daily ROI Earnings</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Rate</th>
+      <th>Profit</th>
+    </tr>
+  </thead>
+  <tbody id="roiTable"></tbody>
+</table>
 
   <!-- ===== ACTIONS ===== -->
   <div class="dashboard-actions">
@@ -129,9 +141,47 @@ ctions.html'">Transactions</button>
     roiInfo.textContent = `${(investment.rate * 100).toFixed(2)}% Daily`;
   }
 </script>
+<script>
+  function getRoiRate(balance) {
+    if (balance >= 10 && balance <= 49) return 0.0125;
+    if (balance >= 50 && balance <= 150) return 0.025;
+    if (balance >= 151 && balance <= 500) return 0.03;
+    if (balance >= 501 && balance <= 1000) return 0.05;
+    return 0;
+  }
+
+  function applyDailyROI() {
+    let balance = parseFloat(localStorage.getItem('balance')) || 0;
+    const today = new Date().toLocaleDateString();
+    const lastDate = localStorage.getItem('lastRoiDate');
+
+    if (today === lastDate) return; // already applied today
+
+    const rate = getRoiRate(balance);
+    if (rate === 0) return;
+
+    const profit = balance * rate;
+    balance += profit;
+
+    localStorage.setItem('balance', balance.toFixed(2));
+    localStorage.setItem('lastRoiDate', today);
+
+    let roiHistory = JSON.parse(localStorage.getItem('roiHistory')) || [];
+    roiHistory.unshift({
+      date: today,
+      profit: profit.toFixed(2),
+      rate: (rate * 100).toFixed(2) + '%'
+    });
+
+    localStorage.setItem('roiHistory', JSON.stringify(roiHistory));
+  }
+
+  applyDailyROI();
+</script>
 
 </body>
 </html>
+
 
 
 
