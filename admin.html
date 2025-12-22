@@ -228,7 +228,6 @@ function renderAdminTable() {
   updateStats(txs);
 }
 
-/* ===== APPROVE ===== */
 function approveTx(index) {
   let txs = getTransactions();
   const tx = txs[index];
@@ -242,6 +241,10 @@ function approveTx(index) {
   }
 
   if (tx.type === "Withdraw") {
+    if (parseFloat(tx.amount) > balance) {
+      alert("Cannot approve withdrawal: insufficient balance");
+      return;
+    }
     balance -= parseFloat(tx.amount);
   }
 
@@ -335,5 +338,6 @@ renderInvestments();
 
 </body>
 </html>
+
 
 
