@@ -84,6 +84,44 @@
     pendingTx.splice(index, 1);
     localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
     renderAdminTx();
+    <script>
+function approveTx(index) {
+  let tx = pendingTx[index];
+  let balance = parseFloat(localStorage.getItem('balance')) || 0;
+
+  if (tx.type === 'Deposit') {
+    balance += parseFloat(tx.amount);
+
+    // ===== CREATE ACTIVE INVESTMENT =====
+    let rate = 0;
+    const amount = parseFloat(tx.amount);
+
+    if (amount >= 10 && amount <= 50) rate = 0.0125;
+    else if (amount <= 150) rate = 0.025;
+    else if (amount <= 500) rate = 0.03;
+    else if (amount <= 1000) rate = 0.05;
+
+    const investment = {
+      amount: amount,
+      rate: rate,
+      startDate: new Date().toISOString()
+    };
+
+    localStorage.setItem('activeInvestment', JSON.stringify(investment));
+  }
+
+  if (tx.type === 'Withdraw') {
+    balance -= parseFloat(tx.amount);
+  }
+
+  localStorage.setItem('balance', balance.toFixed(2));
+
+  pendingTx.splice(index, 1);
+  localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
+  renderAdminTx();
+}
+</script>
+
   }
 
   function declineTx(index) {
@@ -97,4 +135,5 @@
 
 </body>
 </html>
+
 
