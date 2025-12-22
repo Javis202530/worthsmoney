@@ -311,8 +311,25 @@ function approveTx(index) {
 </script>
   <li onclick="adminLogout()">Logout</li>
 
+<script>
+  function approveInvestment(id) {
+    let investments = JSON.parse(localStorage.getItem('investments')) || [];
+
+    investments = investments.map(inv => {
+      if (inv.id === id) {
+        inv.status = 'Active';
+        inv.lastRoiDate = new Date().toLocaleDateString();
+      }
+      return inv;
+    });
+
+    localStorage.setItem('investments', JSON.stringify(investments));
+    loadAdminData();
+  }
+</script>
 
 </html>
+
 
 
 
