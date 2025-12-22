@@ -159,12 +159,63 @@
   renderTransactions();
 </script>
 
-</body>
-</html>
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  background: #0b1d3a;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #162f5f;
+}
+
+.content {
+  flex: 1;
+  padding: 25px;
+  background: #f4f6f8;
+}
+
+.section.hidden {
+  display: none;
+}
+
+.cards {
+  display: flex;
+  gap: 15px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  font-weight: bold;
+}
 
 
 </body>
 </html>
+
 
 
 
