@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | WorthMoney Investment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">WorthMoney <span>Admin</span></div>
+  <nav class="dash-nav">
+    <a href="admin.html">Pending Transactions</a>
+    <a href="dashboard.html">User View</a>
+    <a href="index.html">Logout</a>
+  </nav>
+</header>
+
+<section class="dashboard">
+  <h2>Pending Transactions</h2>
+  <p class="muted">Approve or decline user deposits and withdrawals</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="adminTx">
+      <tr>
+        <td colspan="5">No pending transactions</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+  let pendingTx = JSON.parse(localStorage.getItem('pendingTx')) || [];
+  const adminTx = document.getElementById('adminTx');
+
+  function renderAdminTx() {
+    adminTx.innerHTML = '';
+    if (pendingTx.length === 0) {
+      adminTx.innerHTML = '<tr><td colspan="5">No pending transactions</td></tr>';
+      return;
+    }
+
+    pendingTx.forEach((tx, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${tx.date}</td>
+        <td>${tx.user}</td>
+        <td>${tx.type}</td>
+        <td>$${tx.amount}</td>
+        <td>
+          <button onclick="approveTx(${index})">Approve</button>
+          <button class="secondary" onclick="declineTx(${index})">Decline</button>
+        </td>
+      `;
+      adminTx.appendChild(row);
+    });
+  }
+
+  function approveTx(index) {
+    let tx = pendingTx[index];
+    let balance = parseFloat(localStorage.getItem('balance')) || 0;
+
+    if (tx.type === 'Deposit') balance += parseFloat(tx.amount);
+    if (tx.type === 'Withdraw') balance -= parseFloat(tx.amount);
+
+    localStorage.setItem('balance', balance.toFixed(2));
+
+    pendingTx.splice(index, 1);
+    localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
+    renderAdminTx();
+  }
+
+  function declineTx(index) {
+    pendingTx.splice(index, 1);
+    localStorage.setItem('pendingTx', JSON.stringify(pendingTx));
+    renderAdminTx();
+  }
+
+  renderAdminTx();
+</script>
+
+</body>
+</html>
