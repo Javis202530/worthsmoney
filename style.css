@@ -375,6 +375,33 @@ button {
   font-weight: 600;
 }
 
+.tx-card {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tx-card.success {
+  border-left: 5px solid green;
+}
+
+.tx-card.danger {
+  border-left: 5px solid red;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button.danger {
+  background: #c0392b;
+  color: white;
+}
+
 
 
 
