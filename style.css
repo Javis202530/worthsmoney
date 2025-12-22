@@ -354,6 +354,27 @@ button {
 .dash-nav a:hover {
   text-decoration: underline;
 }
+/* ===== TRANSACTION STATUS LABELS ===== */
+.status-success {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #ca8a04;
+  font-weight: 600;
+}
+
+.status-declined {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.status-failed {
+  color: #374151;
+  font-weight: 600;
+}
+
 
 
 
