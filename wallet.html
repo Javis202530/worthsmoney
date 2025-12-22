@@ -329,18 +329,32 @@ renderTransactions();
       document.getElementById("investAmount").value
     );
 
+    let balance = parseFloat(localStorage.getItem("balance")) || 0;
+
     if (!amount || amount < 10) {
       alert("Minimum investment is $10");
       return;
     }
 
+    if (amount > balance) {
+      alert("Insufficient balance to invest this amount");
+      return;
+    }
+
     createInvestment(amount);
+
+    // Deduct balance immediately
+    balance -= amount;
+    localStorage.setItem("balance", balance.toFixed(2));
+
     document.getElementById("investAmount").value = "";
   }
 </script>
 
 
+
 </body>
 </html>
+
 
 
