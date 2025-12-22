@@ -1,215 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | WorthMoney Investment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | WorthMoney Investment</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1d3a, #132f5f);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b1d3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
 
-    .auth-box {
-      background: #fff;
-      width: 380px;
-      border-radius: 10px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      overflow: hidden;
-    }
+  .auth-box {
+    background: #fff;
+    width: 360px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.3);
+  }
 
-    .auth-header {
-      background: #0b1d3a;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
+  .auth-box h2 {
+    text-align: center;
+    color: #0b1d3a;
+    margin-bottom: 5px;
+  }
 
-    .auth-header h2 {
-      margin: 0;
-      font-size: 22px;
-    }
+  .auth-box p {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
 
-    .tabs {
-      display: flex;
-    }
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
 
-    .tab {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      cursor: pointer;
-      background: #f1f1f1;
-      font-weight: bold;
-    }
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    background: #f1c40f;
+    font-weight: bold;
+  }
 
-    .tab.active {
-      background: #fff;
-      border-bottom: 3px solid #0b1d3a;
-    }
+  .toggle {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
 
-    .auth-content {
-      padding: 25px;
-    }
+  .toggle a {
+    color: #0b1d3a;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
-    .auth-content input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    .auth-content button {
-      width: 100%;
-      padding: 12px;
-      background: #0b1d3a;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .auth-content button:hover {
-      background: #132f5f;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .small-text {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 13px;
-      color: #666;
-    }
-  </style>
+  .hidden {
+    display: none;
+  }
+</style>
 </head>
 
 <body>
 
 <div class="auth-box">
 
-  <!-- HEADER -->
-  <div class="auth-header">
-    <h2>WorthMoney Investment</h2>
-    <p>Secure Investor Access</p>
-  </div>
+  <!-- ===== LOGIN ===== -->
+  <div id="loginBox">
+    <h2>Welcome Back</h2>
+    <p>Login to your investment dashboard</p>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <div class="tab active" onclick="showLogin()">Login</div>
-    <div class="tab" onclick="showSignup()">Create Account</div>
-  </div>
-
-  <!-- LOGIN -->
-  <div class="auth-content" id="loginBox">
-    <<input type="text" id="loginIdentifier" placeholder="Email or Phone">
-<input type="password" id="loginPassword" placeholder="Password">
+    <input type="text" id="loginIdentifier" placeholder="Email or Phone">
+    <input type="password" id="loginPassword" placeholder="Password">
 
     <button onclick="loginUser()">Login</button>
-    <div class="small-text">Access your dashboard securely</div>
+
+    <div class="toggle">
+      Don’t have an account? <a onclick="showSignup()">Create Account</a>
+    </div>
   </div>
 
-  <!-- SIGN UP -->
-  <div class="auth-content hidden" id="signupBox">
-    <input type="text" id="signupName" placeholder="Full Name" />
-    <input type="email" id="signupEmail" placeholder="Email Address" />
-    <input type="tel" id="signupPhone" placeholder="Phone Number" />
-    <input type="password" id="signupPassword" placeholder="Create Password" />
-    <button onclick="signup()">Create Account</button>
-    <div class="small-text">Start investing in minutes</div>
+  <!-- ===== SIGNUP ===== -->
+  <div id="signupBox" class="hidden">
+    <h2>Create Account</h2>
+    <p>Start investing with WorthMoney</p>
+
+    <input type="text" id="signupName" placeholder="Full Name">
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="text" id="signupPhone" placeholder="Phone Number">
+    <input type="password" id="signupPassword" placeholder="Password">
+
+    <button onclick="signupUser()">Create Account</button>
+
+    <div class="toggle">
+      Already have an account? <a onclick="showLogin()">Login</a>
+    </div>
   </div>
 
 </div>
 
-<!-- ===== SCRIPT ===== -->
 <script>
-  const loginTab = document.querySelectorAll('.tab')[0];
-  const signupTab = document.querySelectorAll('.tab')[1];
-  const loginBox = document.getElementById('loginBox');
-  const signupBox = document.getElementById('signupBox');
+/* ===== TOGGLE ===== */
+function showSignup() {
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("signupBox").classList.remove("hidden");
+}
 
-  function showLogin() {
-    loginTab.classList.add('active');
-    signupTab.classList.remove('active');
-    loginBox.classList.remove('hidden');
-    signupBox.classList.add('hidden');
-  }
+function showLogin() {
+  document.getElementById("signupBox").classList.add("hidden");
+  document.getElementById("loginBox").classList.remove("hidden");
+}
 
-  function showSignup() {
-    signupTab.classList.add('active');
-    loginTab.classList.remove('active');
-    signupBox.classList.remove('hidden');
-    loginBox.classList.add('hidden');
-  }
-
-  function signup() {
-    const user = {
-      name: signupName.value,
-      email: signupEmail.value,
-      phone: signupPhone.value,
-      password: signupPassword.value
-    };
-
-    localStorage.setItem("user", JSON.stringify(user));
-    alert("Account created successfully");
-    showLogin();
-  }
-
-  function login() {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
-    const input = loginUser.value;
-    const pass = loginPassword.value;
-
-    if (!savedUser) {
-      alert("No account found");
-      return;
-    }
-
-    if ((input === savedUser.email || input === savedUser.phone) && pass === savedUser.password) {
-      window.location.href = "dashboard.html";
-    } else {
-      alert("Invalid login details");
-    }
-  }
-</script>
-<script>
+/* ===== LOGIN ===== */
 function loginUser() {
   const identifier = document.getElementById("loginIdentifier").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
 
   if (!identifier || !password) {
-    alert("Please enter login details");
+    alert("Please fill all fields");
     return;
   }
 
-  // CREATE USER SESSION
   const user = {
     id: Date.now(),
     identifier: identifier,
     loginTime: new Date().toISOString()
   };
 
-  // SAVE SESSION
   localStorage.setItem("user", JSON.stringify(user));
+  window.location.href = "dashboard.html";
+}
 
-  // REDIRECT
+/* ===== SIGNUP ===== */
+function signupUser() {
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const phone = document.getElementById("signupPhone").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
+
+  if (!name || !email || !phone || !password) {
+    alert("Please complete all fields");
+    return;
+  }
+
+  const user = {
+    id: Date.now(),
+    name,
+    email,
+    phone,
+    signupTime: new Date().toISOString()
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
   window.location.href = "dashboard.html";
 }
 </script>
 
 </body>
 </html>
-
-
-
