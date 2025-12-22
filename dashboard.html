@@ -38,6 +38,15 @@
     <div class="stat-card">
       <h4>Daily ROI</h4>
       <p class="amount">$0.00</p>
+      <script>
+  const roiInfo = document.getElementById('roiInfo');
+  const investment = JSON.parse(localStorage.getItem('activeInvestment'));
+
+  if (investment) {
+    roiInfo.textContent = `${(investment.rate * 100).toFixed(2)}% Daily`;
+  }
+</script>
+
     </div>
     <div class="stat-card">
       <h4>Total Earnings</h4>
@@ -108,9 +117,14 @@ ctions.html'">Transactions</button>
 
   applyDailyROI();
 </script>
+<div class="stat-card">
+  <h3>Daily ROI</h3>
+  <p id="roiInfo">—</p>
+</div>
 
 </body>
 </html>
+
 
 
 
