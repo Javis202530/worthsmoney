@@ -99,7 +99,7 @@
     ⚠️ Frontend-only (OK for prototype)
   */
 
-  const ADMIN_PASSWORD = "WorthMoney@Admin2025"; // CHANGE THIS
+  const ADMIN_PASSWORD = "Javis1998."; // CHANGE THIS
 
   document.getElementById("adminLoginForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -108,7 +108,24 @@
 
     if (enteredPassword === ADMIN_PASSWORD) {
       // set admin session
+      <script>
+  function adminLogin() {
+    const password = document.getElementById("adminPassword").value;
+
+    if (password === "Javis1998.") {
       localStorage.setItem("isAdmin", "true");
+
+      // SESSION EXPIRES AFTER 30 MINUTES
+      const expiryTime = Date.now() + (30 * 60 * 1000);
+      localStorage.setItem("adminExpiry", expiryTime);
+
+      window.location.href = "admin.html";
+    } else {
+      alert("Wrong admin password");
+    }
+  }
+</script>
+
 
       // redirect to admin dashboard
       window.location.href = "admin.html";
@@ -120,3 +137,4 @@
 
 </body>
 </html>
+
