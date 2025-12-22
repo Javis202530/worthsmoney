@@ -139,9 +139,18 @@ function toggleMenu() {
 }
 </script>
 <a href="auth.html">Start Investing</a>
+    
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    // optional: auto-send logged in users to dashboard
+    // window.location.href = "dashboard.html";
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
