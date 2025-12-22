@@ -216,9 +216,23 @@ function approveTx(index) {
 
   </main>
 </div>
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.classList.add('hidden');
+    });
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function adminLogout() {
+    localStorage.removeItem('isAdmin');
+    window.location.href = 'admin-login.html';
+  }
+</script>
 
 
 </html>
+
 
 
 
