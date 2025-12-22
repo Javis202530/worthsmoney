@@ -279,9 +279,6 @@ renderTxPreview();
     localStorage.setItem("investments", JSON.stringify(investments));
     localStorage.setItem("balance", balance.toFixed(2));
   }
-  if (!localStorage.getItem("lockedBalance")) {
-  localStorage.setItem("lockedBalance", "0");
-}
 
   applyInvestmentROI();
 </script>
@@ -289,8 +286,6 @@ renderTxPreview();
 </body>
 </html>
 
-</body>
-</html>
 
 
 
