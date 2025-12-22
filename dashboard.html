@@ -87,8 +87,31 @@ ctions.html'">Transactions</button>
   balanceEl.textContent = `$${storedBalance}`;
 </script>
 
+  <script>
+  function applyDailyROI() {
+    const investment = JSON.parse(localStorage.getItem('activeInvestment'));
+    if (!investment) return;
+
+    const lastApplied = localStorage.getItem('lastROI');
+    const today = new Date().toDateString();
+
+    if (lastApplied === today) return; // already applied today
+
+    let balance = parseFloat(localStorage.getItem('balance')) || 0;
+    const profit = investment.amount * investment.rate;
+
+    balance += profit;
+
+    localStorage.setItem('balance', balance.toFixed(2));
+    localStorage.setItem('lastROI', today);
+  }
+
+  applyDailyROI();
+</script>
+
 </body>
 </html>
+
 
 
 
