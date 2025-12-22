@@ -283,8 +283,37 @@ function createInvestment(amount) {
   localStorage.setItem("investments", JSON.stringify(investments));
   alert("Investment submitted for admin approval");    
 }
+<script>
+  // STEP 4: Apply ROI daily
+  function applyInvestmentROI() {
+    let investments = JSON.parse(localStorage.getItem("investments")) || [];
+    let balance = parseFloat(localStorage.getItem("balance")) || 0;
+    const today = new Date().toLocaleDateString();
+
+    investments = investments.map(inv => {
+      if (inv.status !== "Active") return inv;
+      if (inv.lastRoiDate === today) return inv;
+
+      const profit = inv.amount * inv.rate;
+      inv.totalEarned += profit;
+      inv.lastRoiDate = today;
+      balance += profit;
+
+      return inv;
+    });
+
+    localStorage.setItem("investments", JSON.stringify(investments));
+    localStorage.setItem("balance", balance.toFixed(2));
+  }
+
+  applyInvestmentROI();
+</script>
 
 </body>
 </html>
+
+</body>
+</html>
+
 
 
