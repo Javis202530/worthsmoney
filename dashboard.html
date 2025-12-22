@@ -121,9 +121,18 @@ ctions.html'">Transactions</button>
   <h3>Daily ROI</h3>
   <p id="roiInfo">—</p>
 </div>
+<script>
+  const roiInfo = document.getElementById('roiInfo');
+  const investment = JSON.parse(localStorage.getItem('activeInvestment'));
+
+  if (investment && roiInfo) {
+    roiInfo.textContent = `${(investment.rate * 100).toFixed(2)}% Daily`;
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
