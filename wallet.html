@@ -32,7 +32,8 @@
       <form id="depositForm">
         <input type="number" id="depositAmount" min="10" max="1000" placeholder="Amount (USD)" required />
         <p class="muted" id="depositPlan">—</p>
-        <button type="submit">Deposit</button>
+     <button onclick="submitInvestment()">deposit</button>
+
       </form>
     </div>
 
@@ -42,6 +43,8 @@
       <form id="withdrawForm">
         <input type="number" id="withdrawAmount" placeholder="Amount (USD)" required />
         <button class="secondary" type="submit">Withdraw</button>
+        <button onclick="submitInvestment()">withdrawal</button>
+
       </form>
     </div>
 
@@ -240,9 +243,20 @@
     return 0;
   }
 </script>
+<script>
+function submitInvestment() {
+  const amount = parseFloat(document.getElementById("investAmount").value);
+  if (!amount || amount < 10) {
+    alert("Invalid amount");
+    return;
+  }
+  createInvestment(amount);
+}
+</script>
 
 </body>
 </html>
+
 
 
 
