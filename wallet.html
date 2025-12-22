@@ -351,44 +351,50 @@ renderTransactions();
   }
 </script>
 
-<script>
-  function handleWithdraw() {
-    const amount = parseFloat(
-      document.getElementById("withdrawAmount").value
-    );
+<function handleWithdraw() {
+  const amount = parseFloat(
+    document.getElementById("withdrawAmount").value
+  );
 
-    let balance = parseFloat(localStorage.getItem("balance")) || 0;
+  let balance = parseFloat(localStorage.getItem("balance")) || 0;
+  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
+  let available = balance - locked;
 
-    if (!amount || amount <= 0) {
-      alert("Enter a valid withdrawal amount");
-      return;
-    }
-
-    if (amount > balance) {
-      alert("You cannot withdraw more than your balance");
-      return;
-    }
-
-    // Create withdrawal request
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
-    transactions.unshift({
-      type: "Withdrawal",
-      amount,
-      status: "Pending",
-      date: new Date().toLocaleString()
-    });
-
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-
-    document.getElementById("withdrawAmount").value = "";
-    alert("Withdrawal request sent for admin approval");
+  if (!amount || amount <= 0) {
+    alert("Enter a valid withdrawal amount");
+    return;
   }
-</script>
+
+  if (amount > available) {
+    alert("Insufficient available balance");
+    return;
+  }
+
+  // 🔒 LOCK THE FUNDS
+  locked += amount;
+  localStorage.setItem("lockedBalance", locked.toFixed(2));
+
+  // Create withdrawal transaction
+  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+  transactions.unshift({
+    type: "Withdraw",
+    amount,
+    status: "Pending",
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+
+  document.getElementById("withdrawAmount").value = "";
+  alert("Withdrawal request submitted and funds locked");
+}
+
 
 
 </body>
 </html>
+
 
 
 
