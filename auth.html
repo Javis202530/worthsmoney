@@ -183,8 +183,33 @@
     }
   }
 </script>
+<script>
+function loginUser() {
+  const identifier = document.getElementById("loginIdentifier").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  if (!identifier || !password) {
+    alert("Please enter login details");
+    return;
+  }
+
+  // CREATE USER SESSION
+  const user = {
+    id: Date.now(),
+    identifier: identifier,
+    loginTime: new Date().toISOString()
+  };
+
+  // SAVE SESSION
+  localStorage.setItem("user", JSON.stringify(user));
+
+  // REDIRECT
+  window.location.href = "dashboard.html";
+}
+</script>
 
 </body>
 </html>
+
 
 
