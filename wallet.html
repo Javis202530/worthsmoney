@@ -330,6 +330,9 @@ renderTransactions();
     );
 
     let balance = parseFloat(localStorage.getItem("balance")) || 0;
+    let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
+    let available = balance - locked;
+
 
     if (!amount || amount < 10) {
       alert("Minimum investment is $10");
@@ -394,6 +397,7 @@ renderTransactions();
 
 </body>
 </html>
+
 
 
 
