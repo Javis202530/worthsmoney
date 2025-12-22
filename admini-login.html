@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | WorthMoney Investment</title>
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Extra admin login styling (safe to keep here) */
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .auth-box {
+      background: #ffffff;
+      padding: 35px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .auth-box h2 {
+      margin-bottom: 8px;
+    }
+
+    .auth-box .muted {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .auth-box input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+
+    .auth-box button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .auth-box button:hover {
+      background: #1d4ed8;
+    }
+
+    .error {
+      color: #b91c1c;
+      font-size: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<section class="auth-container">
+  <div class="auth-box">
+    <h2>Admin Login</h2>
+    <p class="muted">Authorized access only</p>
+
+    <form id="adminLoginForm">
+      <input
+        type="password"
+        id="adminPass"
+        placeholder="Enter admin password"
+        required
+      />
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="errorMsg" class="error">Invalid admin password</p>
+  </div>
+</section>
+
+<script>
+  /*
+    ============================
+    ADMIN AUTHENTICATION LOGIC
+    ============================
+    ⚠️ Frontend-only (OK for prototype)
+  */
+
+  const ADMIN_PASSWORD = "WorthMoney@Admin2025"; // CHANGE THIS
+
+  document.getElementById("adminLoginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const enteredPassword = document.getElementById("adminPass").value;
+
+    if (enteredPassword === ADMIN_PASSWORD) {
+      // set admin session
+      localStorage.setItem("isAdmin", "true");
+
+      // redirect to admin dashboard
+      window.location.href = "admin.html";
+    } else {
+      document.getElementById("errorMsg").style.display = "block";
+    }
+  });
+</script>
+
+</body>
+</html>
