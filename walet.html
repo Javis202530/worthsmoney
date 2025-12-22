@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wallet | WorthMoney Investment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <div class="brand">WorthMoney <span>Investment</span></div>
+  <nav class="dash-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="wallet.html">Wallet</a>
+    <a href="index.html">Logout</a>
+  </nav>
+</header>
+
+<!-- ===== WALLET SECTION ===== -->
+<section class="dashboard">
+  <h2>Wallet</h2>
+  <p class="muted">Deposit, withdraw, and view your transaction history</p>
+
+  <!-- ===== DEPOSIT & WITHDRAW ===== -->
+  <div class="stats-grid">
+
+    <!-- DEPOSIT -->
+    <div class="stat-card">
+      <h4>Deposit Funds</h4>
+      <form id="depositForm">
+        <input type="number" id="depositAmount" min="10" max="1000" placeholder="Amount (USD)" required />
+        <p class="muted" id="depositPlan">—</p>
+        <button type="submit">Deposit</button>
+      </form>
+    </div>
+
+    <!-- WITHDRAW -->
+    <div class="stat-card">
+      <h4>Withdraw Funds</h4>
+      <form id="withdrawForm">
+        <input type="number" id="withdrawAmount" placeholder="Amount (USD)" required />
+        <button class="secondary" type="submit">Withdraw</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- ===== TRANSACTIONS ===== -->
+  <div class="recent-activity" style="margin-top:40px;">
+    <h3>Transaction History</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="txTable">
+        <tr>
+          <td>—</td>
+          <td>No transactions yet</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-pro">
+  © 2025 WorthMoney Investment
+</footer>
+
+<script>
+  const depositAmount = document.getElementById('depositAmount');
+  const depositPlan = document.getElementById('depositPlan');
+  const txTable = document.getElementById('txTable');
+
+  depositAmount.addEventListener('input', () => {
+    const amount = parseFloat(depositAmount.value);
+    if (amount >= 10 && amount <= 50) depositPlan.textContent = 'Starter Plan – 1.25% Daily';
+    else if (amount <= 150) depositPlan.textContent = 'Growth Plan – 2.5% Daily';
+    else if (amount <= 500) depositPlan.textContent = 'Advanced Plan – 3% Daily';
+    else if (amount <= 1000) depositPlan.textContent = 'Premium Plan – 5% Daily';
+    else depositPlan.textContent = '—';
+  });
+
+  document.getElementById('depositForm').addEventListener('submit', e => {
+    e.preventDefault();
+    addTx('Deposit', depositAmount.value);
+    depositAmount.value = '';
+    depositPlan.textContent = '—';
+  });
+
+  document.getElementById('withdrawForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const amount = document.getElementById('withdrawAmount').value;
+    addTx('Withdraw', amount);
+    document.getElementById('withdrawAmount').value = '';
+  });
+
+  function addTx(type, amount) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${new Date().toLocaleDateString()}</td>
+      <td>${type}</td>
+      <td>$${amount}</td>
+      <td>Pending</td>
+    `;
+    txTable.innerHTML = '';
+    txTable.appendChild(row);
+  }
+</script>
+
+</body>
+</html>
