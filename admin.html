@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<script>
+  // ADMIN ACCESS GUARD
+  if (!localStorage.getItem("isAdmin")) {
+    window.location.href = "admin-login.html";
+  }
+</script>
 
 <header class="topbar">
   <div class="brand">WorthMoney <span>Admin</span></div>
@@ -91,3 +97,4 @@
 
 </body>
 </html>
+
