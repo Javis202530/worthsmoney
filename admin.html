@@ -170,7 +170,56 @@ function approveTx(index) {
 </script>
 
 </body>
+  <script>
+  if (!localStorage.getItem("isAdmin")) {
+    window.location.href = "admin-login.html";
+  }
+</script>
+  <div class="admin-container">
+
+  <aside class="sidebar">
+    <h2>WorthMoney Admin</h2>
+    <ul>
+      <li onclick="showSection('dashboard')">Dashboard</li>
+      <li onclick="showSection('pending')">Pending</li>
+      <li onclick="showSection('approved')">Approved</li>
+      <li onclick="showSection('declined')">Declined</li>
+      <li onclick="adminLogout()">Logout</li>
+    </ul>
+  </aside>
+
+  <main class="content">
+
+    <section id="dashboard" class="section">
+      <h2>Admin Overview</h2>
+      <div class="cards">
+        <div class="card">Pending: <span id="pendingCount">0</span></div>
+        <div class="card">Approved: <span id="approvedCount">0</span></div>
+        <div class="card">Declined: <span id="declinedCount">0</span></div>
+      </div>
+    </section>
+
+    <section id="pending" class="section hidden">
+      <h2>Pending Transactions</h2>
+      <div id="pendingList"></div>
+    </section>
+
+    <section id="approved" class="section hidden">
+      <h2>Approved Transactions</h2>
+      <div id="approvedList"></div>
+    </section>
+
+    <section id="declined" class="section hidden">
+      <h2>Declined Transactions</h2>
+      <div id="declinedList"></div>
+    </section>
+
+  </main>
+</div>
+
+
 </html>
+
 
 
 
