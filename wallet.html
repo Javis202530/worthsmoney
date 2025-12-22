@@ -212,9 +212,38 @@
   font-weight: bold;
 }
 
+<script>
+  function createInvestment(amount) {
+    let investments = JSON.parse(localStorage.getItem('investments')) || [];
+
+    const investment = {
+      id: Date.now(),
+      amount: amount,
+      rate: getRate(amount),
+      startDate: new Date().toLocaleDateString(),
+      lastRoiDate: null,
+      totalEarned: 0,
+      status: 'Pending'
+    };
+
+    investments.push(investment);
+    localStorage.setItem('investments', JSON.stringify(investments));
+
+    alert('Investment submitted for admin approval');
+  }
+
+  function getRate(amount) {
+    if (amount >= 10 && amount <= 49) return 0.0125;
+    if (amount >= 50 && amount <= 150) return 0.025;
+    if (amount >= 151 && amount <= 500) return 0.03;
+    if (amount >= 501 && amount <= 1000) return 0.05;
+    return 0;
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
