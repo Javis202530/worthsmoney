@@ -173,6 +173,18 @@ footer {
       <input type="number" id="withdrawAmount" placeholder="Enter amount (USD)">
       <button class="withdraw" onclick="withdraw()">Withdraw</button>
     </div>
+<div class="wallet-box">
+  <h3>Invest Funds</h3>
+
+  <input
+    type="number"
+    id="investAmount"
+    placeholder="Enter amount (USD)"
+    min="10"
+  />
+
+  <button onclick="handleInvestment()">Invest Now</button>
+</div>
 
   </div>
 
@@ -311,9 +323,24 @@ renderTransactions();
   }
 </script>
 
-</body>
-</html>
+<script>
+  function handleInvestment() {
+    const amount = parseFloat(
+      document.getElementById("investAmount").value
+    );
+
+    if (!amount || amount < 10) {
+      alert("Minimum investment is $10");
+      return;
+    }
+
+    createInvestment(amount);
+    document.getElementById("investAmount").value = "";
+  }
+</script>
+
 
 </body>
 </html>
+
 
