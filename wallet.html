@@ -78,72 +78,10 @@
 </footer>
 
 <script>
-  const depositAmount = document.getElementById('depositAmount');
-  const depositPlan = document.getElementById('depositPlan');
-  const txTable = document.getElementById('txTable');
-
-  // ===== PLAN PREVIEW =====
-  depositAmount.addEventListener('input', () => {
-    const amount = parseFloat(depositAmount.value);
-    if (amount >= 10 && amount <= 50) depositPlan.textContent = 'Starter Plan – 1.25% Daily';
-    else if (amount >= 51 && amount <= 150) depositPlan.textContent = 'Growth Plan – 2.5% Daily';
-    else if (amount >= 151 && amount <= 500) depositPlan.textContent = 'Advanced Plan – 3% Daily';
-    else if (amount >= 501 && amount <= 1000) depositPlan.textContent = 'Premium Plan – 5% Daily';
-    else depositPlan.textContent = '—';
-  });
-
-  // ===== STATUS GENERATOR (SIMULATION) =====
-  function getStatus() {
-    const statuses = ['Success', 'Pending', 'Declined', 'Failed'];
-    return statuses[Math.floor(Math.random() * statuses.length)];
-  }
-
-  // ===== ADD TRANSACTION ROW =====
-  function addTx(type, amount, status) {
-    const row = document.createElement('tr');
-
-    let statusClass = '';
-    if (status === 'Success') statusClass = 'status-success';
-    if (status === 'Pending') statusClass = 'status-pending';
-    if (status === 'Declined') statusClass = 'status-declined';
-    if (status === 'Failed') statusClass = 'status-failed';
-
-    row.innerHTML = `
-      <td>${new Date().toLocaleDateString()}</td>
-      <td>${type}</td>
-      <td>$${amount}</td>
-      <td class="${statusClass}">${status}</td>
-    `;
-
-    // clear placeholder row
-    if (txTable.children.length === 1 && txTable.children[0].children[1].textContent.includes('No transactions')) {
-      txTable.innerHTML = '';
-    }
-
-    txTable.prepend(row);
-  }
-
-  // ===== DEPOSIT SUBMIT =====
-  document.getElementById('depositForm').addEventListener('submit', e => {
-    e.preventDefault();
-    const amount = depositAmount.value;
-    const status = getStatus();
-
-    addTx('Deposit', amount, status);
-
-    depositAmount.value = '';
-    depositPlan.textContent = '—';
-  });
-
-  // ===== WITHDRAW SUBMIT =====
-  document.getElementById('withdrawForm').addEventListener('submit', e => {
-    e.preventDefault();
-    const amount = document.getElementById('withdrawAmount').value;
-    const status = getStatus();
-
-    addTx('Withdraw', amount, status);
-    document.getElementById('withdrawAmount').value = '';
-  });
+  // ===== LOAD BALANCE FROM STORAGE =====
+  const balanceEl = document.getElementById('balanceAmount');
+  const storedBalance = localStorage.getItem('balance') || '0.00';
+  balanceEl.textContent = `$${storedBalance}`;
 </script>
 
 </body>
