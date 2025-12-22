@@ -6,6 +6,7 @@
   <title>Dashboard | WorthMoney Investment</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <!-- ===== TOP BAR ===== -->
@@ -13,7 +14,7 @@
   <div class="brand">WorthMoney <span>Investment</span></div>
   <nav class="dash-nav">
     <a href="dashboard.html">Dashboard</a>
-    <a href="deposit.html">Deposit</a>
+    <a href="wallet.html">Deposit</a>
     <a href="transactions.html">Transactions</a>
     <a href="index.html">Logout</a>
   </nav>
@@ -26,246 +27,113 @@
 
   <!-- ===== STATS ===== -->
   <div class="stats-grid">
-    <div class="stat-card">
-  <h2 id="balanceAmount">$0.00</h2>
-  <p>Account Balance</p>
-</div>
 
     <div class="stat-card">
-      <h4>Active Investment</h4>
-      <p class="amount">$0.00</p>
+      <h3 id="balanceAmount">$0.00</h3>
+      <p>Account Balance</p>
     </div>
-    <div class="stat-card">
-      <h4>Daily ROI</h4>
-      <p class="amount">$0.00</p>
-      <script>
-  const roiInfo = document.getElementById('roiInfo');
-  const investment = JSON.parse(localStorage.getItem('activeInvestment'));
 
-  if (investment) {
-    roiInfo.textContent = `${(investment.rate * 100).toFixed(2)}% Daily`;
-  }
-</script>
-
-    </div>
     <div class="stat-card">
-      <h4>Total Earnings</h4>
-      <p class="amount">$0.00</p>
+      <h3 id="activeCount">0</h3>
+      <p>Active Investments</p>
     </div>
+
+    <div class="stat-card">
+      <h3 id="dailyRoi">—</h3>
+      <p>Daily ROI</p>
+    </div>
+
+    <div class="stat-card">
+      <h3 id="totalEarnings">$0.00</h3>
+      <p>Total Earnings</p>
+    </div>
+
   </div>
-<h3>Daily ROI Earnings</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Rate</th>
-      <th>Profit</th>
-    </tr>
-  </thead>
-  <tbody id="roiTable"></tbody>
-</table>
 
   <!-- ===== ACTIONS ===== -->
   <div class="dashboard-actions">
     <button onclick="location.href='wallet.html'">Deposit Funds</button>
-<button class="secondary" onclick="location.href='wallet.html'">Withdraw Funds</button>
-ctions.html'">Transactions</button>
+    <button class="secondary" onclick="location.href='wallet.html'">Withdraw Funds</button>
   </div>
 
-  <!-- ===== RECENT ACTIVITY ===== -->
-  <div class="recent-activity">
-    <h3>Recent Activity</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>—</td>
-          <td>No activity yet</td>
-          <td>—</td>
-          <td>—</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- ===== INVESTMENTS ===== -->
+  <h3>My Investments</h3>
+  <div id="investmentList"></div>
+
 </section>
-<h3>My Investments</h3>
-<div id="investmentList"></div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer-pro">
   © 2025 WorthMoney Investment
 </footer>
+
+<!-- ===== DASHBOARD SCRIPT ===== -->
 <script>
-  // Load confirmed balance only
-  const balanceEl = document.getElementById('balanceAmount');
-  const storedBalance = localStorage.getItem('balance') || '0.00';
-  balanceEl.textContent = `$${storedBalance}`;
-</script>
-
-  <script>
-  function applyDailyROI() {
-    const investment = JSON.parse(localStorage.getItem('activeInvestment'));
-    if (!investment) return;
-
-    const lastApplied = localStorage.getItem('lastROI');
-    const today = new Date().toDateString();
-
-    if (lastApplied === today) return; // already applied today
-
-    let balance = parseFloat(localStorage.getItem('balance')) || 0;
-    const profit = investment.amount * investment.rate;
-
-    balance += profit;
-
-    localStorage.setItem('balance', balance.toFixed(2));
-    localStorage.setItem('lastROI', today);
-  }
-
-  applyDailyROI();
-</script>
-<div class="stat-card">
-  <h3>Daily ROI</h3>
-  <p id="roiInfo">—</p>
-</div>
-<script>
-  const roiInfo = document.getElementById('roiInfo');
-  const investment = JSON.parse(localStorage.getItem('activeInvestment'));
-
-  if (investment && roiInfo) {
-    roiInfo.textContent = `${(investment.rate * 100).toFixed(2)}% Daily`;
-  }
-</script>
-<script>
-  function getRoiRate(balance) {
-    if (balance >= 10 && balance <= 49) return 0.0125;
-    if (balance >= 50 && balance <= 150) return 0.025;
-    if (balance >= 151 && balance <= 500) return 0.03;
-    if (balance >= 501 && balance <= 1000) return 0.05;
-    return 0;
-  }
-
-  function applyDailyROI() {
-    let balance = parseFloat(localStorage.getItem('balance')) || 0;
-    const today = new Date().toLocaleDateString();
-    const lastDate = localStorage.getItem('lastRoiDate');
-
-    if (today === lastDate) return; // already applied today
-
-    const rate = getRoiRate(balance);
-    if (rate === 0) return;
-
-    const profit = balance * rate;
-    balance += profit;
-
-    localStorage.setItem('balance', balance.toFixed(2));
-    localStorage.setItem('lastRoiDate', today);
-
-    let roiHistory = JSON.parse(localStorage.getItem('roiHistory')) || [];
-    roiHistory.unshift({
-      date: today,
-      profit: profit.toFixed(2),
-      rate: (rate * 100).toFixed(2) + '%'
-    });
-
-    localStorage.setItem('roiHistory', JSON.stringify(roiHistory));
-  }
-
-  applyDailyROI();
-</script>
-<script>
-  function renderRoiHistory() {
-    const roiTable = document.getElementById('roiTable');
-    const history = JSON.parse(localStorage.getItem('roiHistory')) || [];
-
-    roiTable.innerHTML = '';
-
-    if (history.length === 0) {
-      roiTable.innerHTML = `<tr><td colspan="3">No earnings yet</td></tr>`;
-      return;
-    }
-
-    history.forEach(row => {
-      roiTable.innerHTML += `
-        <tr>
-          <td>${row.date}</td>
-          <td>${row.rate}</td>
-          <td>$${row.profit}</td>
-        </tr>
-      `;
-    });
-  }
-
-  renderRoiHistory();
-</script>
-
-  <script>
-  function applyInvestmentROI() {
+  function loadDashboard() {
     let investments = JSON.parse(localStorage.getItem('investments')) || [];
-    const today = new Date().toLocaleDateString();
     let balance = parseFloat(localStorage.getItem('balance')) || 0;
+    const today = new Date().toLocaleDateString();
+
+    let activeCount = 0;
+    let totalEarned = 0;
+    let roiRate = 0;
+    let updated = false;
 
     investments = investments.map(inv => {
-      if (inv.status !== 'Active') return inv;
-      if (inv.lastRoiDate === today) return inv;
+      if (inv.status === 'Active') {
+        activeCount++;
+        roiRate = inv.rate;
 
-      const profit = inv.amount * inv.rate;
-      inv.totalEarned += profit;
-      inv.lastRoiDate = today;
-      balance += profit;
-
+        if (inv.lastRoiDate !== today) {
+          const profit = inv.amount * inv.rate;
+          inv.totalEarned = (inv.totalEarned || 0) + profit;
+          inv.lastRoiDate = today;
+          balance += profit;
+          updated = true;
+        }
+      }
+      totalEarned += inv.totalEarned || 0;
       return inv;
     });
 
-    localStorage.setItem('investments', JSON.stringify(investments));
-    localStorage.setItem('balance', balance.toFixed(2));
+    if (updated) {
+      localStorage.setItem('investments', JSON.stringify(investments));
+      localStorage.setItem('balance', balance.toFixed(2));
+    }
+
+    // ===== UI UPDATE =====
+    document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
+    document.getElementById('activeCount').textContent = activeCount;
+    document.getElementById('dailyRoi').textContent =
+      activeCount > 0 ? `${(roiRate * 100).toFixed(2)}%` : '—';
+    document.getElementById('totalEarnings').textContent = `$${totalEarned.toFixed(2)}`;
+
+    renderInvestments(investments);
   }
 
-  applyInvestmentROI();
-</script>
-<script>
-  function renderInvestments() {
+  function renderInvestments(investments) {
     const list = document.getElementById('investmentList');
-    const investments = JSON.parse(localStorage.getItem('investments')) || [];
-
     list.innerHTML = '';
 
     if (investments.length === 0) {
-      list.innerHTML = 'No investments yet';
+      list.innerHTML = '<p>No investments yet</p>';
       return;
     }
 
     investments.forEach(inv => {
       list.innerHTML += `
-        <div class="tx-card">
-          Amount: $${inv.amount}<br>
-          Rate: ${(inv.rate * 100).toFixed(2)}% daily<br>
-          Earned: $${inv.totalEarned.toFixed(2)}<br>
-          Status: ${inv.status}
+        <div class="stat-card">
+          <strong>Amount:</strong> $${inv.amount}<br>
+          <strong>Rate:</strong> ${(inv.rate * 100).toFixed(2)}% daily<br>
+          <strong>Earned:</strong> $${(inv.totalEarned || 0).toFixed(2)}<br>
+          <strong>Status:</strong> ${inv.status}
         </div>
       `;
     });
   }
 
-  renderInvestments();
+  loadDashboard();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
