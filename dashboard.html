@@ -96,6 +96,8 @@ ctions.html'">Transactions</button>
     </table>
   </div>
 </section>
+<h3>My Investments</h3>
+<div id="investmentList"></div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer-pro">
@@ -228,9 +230,36 @@ ctions.html'">Transactions</button>
 
   applyInvestmentROI();
 </script>
+<script>
+  function renderInvestments() {
+    const list = document.getElementById('investmentList');
+    const investments = JSON.parse(localStorage.getItem('investments')) || [];
+
+    list.innerHTML = '';
+
+    if (investments.length === 0) {
+      list.innerHTML = 'No investments yet';
+      return;
+    }
+
+    investments.forEach(inv => {
+      list.innerHTML += `
+        <div class="tx-card">
+          Amount: $${inv.amount}<br>
+          Rate: ${(inv.rate * 100).toFixed(2)}% daily<br>
+          Earned: $${inv.totalEarned.toFixed(2)}<br>
+          Status: ${inv.status}
+        </div>
+      `;
+    });
+  }
+
+  renderInvestments();
+</script>
 
 </body>
 </html>
+
 
 
 
