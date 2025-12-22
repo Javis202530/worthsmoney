@@ -229,9 +229,66 @@ function approveTx(index) {
     window.location.href = 'admin-login.html';
   }
 </script>
+<script>
+  function loadAdminData() {
+    const pendingTx = JSON.parse(localStorage.getItem('pendingTx')) || [];
+    const allTx = JSON.parse(localStorage.getItem('transactions')) || [];
+
+    const pendingList = document.getElementById('pendingList');
+    const approvedList = document.getElementById('approvedList');
+    const declinedList = document.getElementById('declinedList');
+
+    pendingList.innerHTML = '';
+    approvedList.innerHTML = '';
+    declinedList.innerHTML = '';
+
+    // COUNTERS
+    document.getElementById('pendingCount').textContent = pendingTx.length;
+    document.getElementById('approvedCount').textContent =
+      allTx.filter(t => t.status === 'Success').length;
+    document.getElementById('declinedCount').textContent =
+      allTx.filter(t => t.status === 'Declined').length;
+
+    // PENDING TRANSACTIONS
+    pendingTx.forEach((tx, index) => {
+      pendingList.innerHTML += `
+        <div class="tx-card">
+          <strong>${tx.type}</strong> — $${tx.amount}<br>
+          <small>${tx.date}</small><br><br>
+          <button onclick="approveTx(${index})">Approve</button>
+          <button onclick="declineTx(${index})" class="danger">Decline</button>
+        </div>
+      `;
+    });
+
+    // APPROVED
+    allTx.filter(t => t.status === 'Success').forEach(tx => {
+      approvedList.innerHTML += `
+        <div class="tx-card success">
+          ${tx.type} — $${tx.amount}<br>
+          <small>${tx.date}</small>
+        </div>
+      `;
+    });
+
+    // DECLINED
+    allTx.filter(t => t.status === 'Declined').forEach(tx => {
+      declinedList.innerHTML += `
+        <div class="tx-card danger">
+          ${tx.type} — $${tx.amount}<br>
+          <small>${tx.date}</small>
+        </div>
+      `;
+    });
+  }
+
+  // LOAD ON PAGE OPEN
+  loadAdminData();
+</script>
 
 
 </html>
+
 
 
 
