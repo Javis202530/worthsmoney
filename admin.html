@@ -291,8 +291,29 @@ function approveTx(index) {
   loadAdminData();
 </script>
 
+</body>
+  <script>
+  const isAdmin = localStorage.getItem("isAdmin");
+  const expiry = localStorage.getItem("adminExpiry");
+
+  if (!isAdmin || !expiry || Date.now() > Number(expiry)) {
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("adminExpiry");
+    window.location.href = "admin-login.html";
+  }
+</script>
+<script>
+  function adminLogout() {
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("adminExpiry");
+    window.location.href = "admin-login.html";
+  }
+</script>
+  <li onclick="adminLogout()">Logout</li>
+
 
 </html>
+
 
 
 
