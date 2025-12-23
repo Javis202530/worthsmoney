@@ -368,35 +368,9 @@ renderTransactions();
     return;
   }
 
-  if (amount > available) {
-    alert("Insufficient available balance");
-    return;
-  }
-
-  // 🔒 LOCK THE FUNDS
-  locked += amount;
-  localStorage.setItem("lockedBalance", locked.toFixed(2));
-
-  // Create withdrawal transaction
-  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
-  transactions.unshift({
-    type: "Withdraw",
-    amount,
-    status: "Pending",
-    date: new Date().toLocaleString()
-  });
-
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-
-  document.getElementById("withdrawAmount").value = "";
-  alert("Withdrawal request submitted and funds locked");
-}
-
-
-
 </body>
 </html>
+
 
 
 
