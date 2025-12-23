@@ -247,7 +247,8 @@ function renderTransactions() {
 }
 
 /* ===== DEPOSIT ===== */
-function deposit() {
+function deposit(amount) {
+  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
   const amount = parseFloat(document.getElementById("depositAmount").value);
   if (!amount || amount <= 0) return alert("Enter valid amount");
 
@@ -261,6 +262,7 @@ function deposit() {
 
   saveTransactions(txs);
   renderTransactions();
+  localStorage.setItem("transactions", JSON.stringify(transactions));
   alert("Deposit submitted for approval");
 }
 
@@ -370,6 +372,7 @@ renderTransactions();
 
 </body>
 </html>
+
 
 
 
