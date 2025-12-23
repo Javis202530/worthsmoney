@@ -251,26 +251,33 @@ function approveTx(index) {
   let txs = getTransactions();
   const tx = txs[index];
 
-  if (tx.status !== "Pending") return;
+  if (!tx || tx.status !== "Pending") return;
 
   let balance = parseFloat(localStorage.getItem("balance")) || 0;
+  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
 
   if (tx.type === "Deposit") {
     balance += parseFloat(tx.amount);
   }
 
- if (tx.type === "Withdraw") {
-  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
+  if (tx.type === "Withdraw") {
+    balance -= parseFloat(tx.amount);
+    locked -= parseFloat(tx.amount);
 
-  if (parseFloat(tx.amount) > locked) {
-    alert("Locked balance mismatch");
-    return;
+    if (locked < 0) locked = 0;
   }
 
-  locked -= parseFloat(tx.amount);
-  balance -= parseFloat(tx.amount);
+  tx.status = "Approved";
+  tx.approvedAt = new Date().toLocaleString();
+  tx.approvedBy = "Admin";
 
+  localStorage.setItem("balance", balance.toFixed(2));
   localStorage.setItem("lockedBalance", locked.toFixed(2));
+  saveTransactions(txs);
+
+  renderAdminTable();
+}
+
 }
 
 
@@ -403,6 +410,7 @@ renderInvestments();
 
 </body>
 </html>
+
 
 
 
