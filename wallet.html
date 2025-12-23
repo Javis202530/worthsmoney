@@ -1,97 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Wallet | WorthMoney Investment</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Wallet | WorthMoney Investment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f4f8;
-      margin: 0;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+}
+header {
+  background: #0b3c5d;
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menu {
+  font-size: 22px;
+  cursor: pointer;
+}
+nav {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 15px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  border-radius: 6px;
+}
+nav a {
+  display: block;
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #333;
+}
+nav a:hover {
+  background: #f1f1f1;
+}
 
-    header {
-      background: #0b3c5d;
-      color: #fff;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
 
-    header a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 15px;
-    }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 15px;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.card h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0 0;
+}
 
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 6px;
-    }
+.section {
+  background: #fff;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 8px;
+}
 
-    h2 {
-      margin-top: 0;
-    }
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
 
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.depositBtn { background: #1aa260; color: #fff; }
+.withdrawBtn { background: #c0392b; color: #fff; }
 
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+th { background: #f2f4f7; }
 
-    .deposit {
-      background: #1aa260;
-      color: #fff;
-    }
+.pending { color: orange; font-weight: bold; }
+.approved { color: green; font-weight: bold; }
+.rejected { color: red; font-weight: bold; }
 
-    .withdraw {
-      background: #c0392b;
-      color: #fff;
-      margin-left: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 25px;
-    }
-
-    th, td {
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-    }
-
-    th {
-      background: #f5f5f5;
-    }
-
-    .pending { color: orange; font-weight: bold; }
-    .approved { color: green; font-weight: bold; }
-    .rejected { color: red; font-weight: bold; }
-  </style>
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div><strong>WorthMoney</strong> Investment</div>
-  <nav>
+  <strong>WorthMoney Wallet</strong>
+  <div class="menu" onclick="toggleMenu()">☰</div>
+  <nav id="nav">
     <a href="dashboard.html">Dashboard</a>
     <a href="wallet.html">Wallet</a>
     <a href="index.html">Logout</a>
@@ -99,126 +131,182 @@
 </header>
 
 <div class="container">
-  <h2>Wallet Requests</h2>
 
-  <input type="number" id="depositAmount" placeholder="Deposit amount (USD)">
-  <input type="number" id="withdrawAmount" placeholder="Withdraw amount (USD)">
-
-  <button class="deposit" onclick="submitDeposit()">Request Deposit</button>
-  <button class="withdraw" onclick="submitWithdraw()">Request Withdraw</button>
-
-  <h3>My Transactions</h3>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Amount</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="txTable"></tbody>
-  </table>
+<!-- SUMMARY -->
+<div class="cards">
+  <div class="card">
+    <h3>Total Deposited</h3>
+    <p id="totalDeposits">$0.00</p>
+  </div>
+  <div class="card">
+    <h3>Total Withdrawn</h3>
+    <p id="totalWithdraws">$0.00</p>
+  </div>
 </div>
 
+<!-- DEPOSIT -->
+<div class="section">
+<h2>Deposit Funds</h2>
+
+<input type="number" id="depositAmount" placeholder="Amount (Min $10 – Max $2000)">
+<select id="depositMethod">
+  <option value="">Select Payment Method</option>
+  <option value="momo">Mobile Money (MTN / Airtel)</option>
+  <option value="flutterwave">Flutterwave</option>
+  <option value="bank">Bank Transfer</option>
+  <option value="crypto">Cryptocurrency</option>
+</select>
+
+<div id="methodInfo"></div>
+
+<button class="depositBtn" onclick="submitDeposit()">Proceed Deposit</button>
+</div>
+
+<!-- WITHDRAW -->
+<div class="section">
+<h2>Withdraw Funds</h2>
+<input type="number" id="withdrawAmount" placeholder="Amount (Min $10 – Max $500)">
+<button class="withdrawBtn" onclick="submitWithdraw()">Request Withdrawal</button>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="section">
+<h2>Transaction History</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Method</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="txTable"></tbody>
+</table>
+</div>
+
+</div>
+
+<footer>© 2025 WorthMoney Investment</footer>
+
 <script>
-/* ===============================
-   CORE STORAGE (DO NOT CHANGE)
-================================ */
-function getTransactions() {
-  return JSON.parse(localStorage.getItem("transactions")) || [];
+const momoCodes = ["MTN-8234", "MTN-1190", "AIRTEL-5521", "AIRTEL-7740", "MTN-3902"];
+
+function toggleMenu() {
+  const nav = document.getElementById("nav");
+  nav.style.display = nav.style.display === "block" ? "none" : "block";
 }
 
-function saveTransactions(txs) {
+function getTx() {
+  return JSON.parse(localStorage.getItem("transactions")) || [];
+}
+function saveTx(txs) {
   localStorage.setItem("transactions", JSON.stringify(txs));
 }
 
-/* ===============================
-   USER ACTIONS
-================================ */
+document.getElementById("depositMethod").addEventListener("change", function() {
+  const box = document.getElementById("methodInfo");
+  box.innerHTML = "";
+
+  if (this.value === "momo") {
+    const code = momoCodes[Math.floor(Math.random() * momoCodes.length)];
+    box.innerHTML = `<p><strong>Pay via Mobile Money</strong><br>
+    Selected Code: <b>${code}</b><br>
+    MTN or Airtel accepted</p>`;
+  }
+  if (this.value === "bank") {
+    box.innerHTML = `<p><strong>Bank Transfer</strong><br>
+    Stanbic / Centenary / Equity Bank<br>
+    Account details will be shown after request</p>`;
+  }
+  if (this.value === "crypto") {
+    box.innerHTML = `<p><strong>Crypto Accepted</strong><br>
+    BTC • ETH • USDT (TRC20)</p>`;
+  }
+  if (this.value === "flutterwave") {
+    box.innerHTML = `<p><strong>Flutterwave</strong><br>
+    Pay with Card or MoMo securely</p>`;
+  }
+});
+
 function submitDeposit() {
-  const amount = parseFloat(document.getElementById("depositAmount").value);
-  if (!amount || amount <= 0) {
-    alert("Enter a valid deposit amount");
+  const amount = +depositAmount.value;
+  const method = depositMethod.value;
+
+  if (amount < 10 || amount > 2000) {
+    alert("Deposit must be between $10 and $2000");
+    return;
+  }
+  if (!method) {
+    alert("Select a payment method");
     return;
   }
 
-  const txs = getTransactions();
-
+  const txs = getTx();
   txs.unshift({
     type: "Deposit",
-    amount: amount,
+    method,
+    amount,
     status: "Pending",
     date: new Date().toLocaleString()
   });
-
-  saveTransactions(txs);
-  document.getElementById("depositAmount").value = "";
-
-  renderTable();
-  alert("Deposit request sent for admin approval");
+  saveTx(txs);
+  render();
+  alert("Deposit request submitted for approval");
 }
 
 function submitWithdraw() {
-  const amount = parseFloat(document.getElementById("withdrawAmount").value);
-  if (!amount || amount <= 0) {
-    alert("Enter a valid withdrawal amount");
+  const amount = +withdrawAmount.value;
+  if (amount < 10 || amount > 500) {
+    alert("Withdraw must be between $10 and $500");
     return;
   }
 
-  const txs = getTransactions();
-
+  const txs = getTx();
   txs.unshift({
     type: "Withdraw",
-    amount: amount,
+    method: "Wallet",
+    amount,
     status: "Pending",
     date: new Date().toLocaleString()
   });
-
-  saveTransactions(txs);
-  document.getElementById("withdrawAmount").value = "";
-
-  renderTable();
-  alert("Withdrawal request sent for admin approval");
+  saveTx(txs);
+  render();
+  alert("Withdrawal request submitted");
 }
 
-/* ===============================
-   TABLE RENDER
-================================ */
-function renderTable() {
+function render() {
+  const txs = getTx();
+  let dep = 0, wit = 0;
   const table = document.getElementById("txTable");
-  const txs = getTransactions();
-
   table.innerHTML = "";
 
-  if (txs.length === 0) {
-    table.innerHTML = `<tr><td colspan="4">No transactions</td></tr>`;
+  if (!txs.length) {
+    table.innerHTML = `<tr><td colspan="5">No transactions</td></tr>`;
     return;
   }
 
-  txs.forEach(tx => {
-    let cls =
-      tx.status === "Pending" ? "pending" :
-      tx.status === "Approved" ? "approved" :
-      "rejected";
+  txs.forEach(t => {
+    if (t.type === "Deposit" && t.status === "Approved") dep += t.amount;
+    if (t.type === "Withdraw" && t.status === "Approved") wit += t.amount;
 
     table.innerHTML += `
-      <tr>
-        <td>${tx.date}</td>
-        <td>${tx.type}</td>
-        <td>$${tx.amount}</td>
-        <td class="${cls}">${tx.status}</td>
-      </tr>
-    `;
+    <tr>
+      <td>${t.date}</td>
+      <td>${t.type}</td>
+      <td>${t.method}</td>
+      <td>$${t.amount}</td>
+      <td class="${t.status.toLowerCase()}">${t.status}</td>
+    </tr>`;
   });
-  }
 
-/* INIT */
-renderTable();
+  totalDeposits.textContent = `$${dep.toFixed(2)}`;
+  totalWithdraws.textContent = `$${wit.toFixed(2)}`;
+}
+
+render();
 </script>
 
 </body>
 </html>
-
-
