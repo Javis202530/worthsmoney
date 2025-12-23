@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Wallet | WorthMoney Investment</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f9;
+      background: #f2f4f8;
       margin: 0;
-      padding: 0;
     }
 
     header {
       background: #0b3c5d;
       color: #fff;
-      padding: 15px 25px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -26,80 +25,42 @@
       color: #fff;
       text-decoration: none;
       margin-left: 15px;
-      font-weight: 500;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 800px;
       margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .wallet-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      font-size: 16px;
-      color: #555;
-    }
-
-    .amount {
-      font-size: 26px;
-      font-weight: bold;
-      color: #0b3c5d;
-    }
-
-    .form-card {
       background: #fff;
       padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
+      border-radius: 6px;
     }
 
-    .form-card h3 {
+    h2 {
       margin-top: 0;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
     }
 
     input {
       width: 100%;
       padding: 12px;
-      border-radius: 6px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
-      font-size: 15px;
+      border-radius: 4px;
     }
 
     button {
       padding: 12px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
+      font-weight: bold;
     }
 
-    .btn-deposit {
+    .deposit {
       background: #1aa260;
       color: #fff;
     }
 
-    .btn-withdraw {
+    .withdraw {
       background: #c0392b;
       color: #fff;
       margin-left: 10px;
@@ -108,43 +69,22 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
+      margin-top: 25px;
     }
 
-    table th, table td {
-      padding: 12px;
+    th, td {
+      padding: 10px;
       border-bottom: 1px solid #eee;
       text-align: left;
     }
 
-    table th {
-      background: #f0f2f5;
-      font-size: 14px;
+    th {
+      background: #f5f5f5;
     }
 
-    .status-pending {
-      color: #f39c12;
-      font-weight: bold;
-    }
-
-    .status-approved {
-      color: #27ae60;
-      font-weight: bold;
-    }
-
-    .status-rejected {
-      color: #c0392b;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-      font-size: 14px;
-    }
+    .pending { color: orange; font-weight: bold; }
+    .approved { color: green; font-weight: bold; }
+    .rejected { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -154,153 +94,114 @@
   <nav>
     <a href="dashboard.html">Dashboard</a>
     <a href="wallet.html">Wallet</a>
-    <a href="index.html" onclick="logout()">Logout</a>
+    <a href="index.html">Logout</a>
   </nav>
 </header>
 
 <div class="container">
+  <h2>Wallet Requests</h2>
 
-  <!-- BALANCE OVERVIEW -->
-  <div class="wallet-cards">
-    <div class="card">
-      <h3>Total Balance</h3>
-      <div class="amount" id="balance">$0.00</div>
-    </div>
-    <div class="card">
-      <h3>Locked Balance</h3>
-      <div class="amount" id="locked">$0.00</div>
-    </div>
-    <div class="card">
-      <h3>Available Balance</h3>
-      <div class="amount" id="available">$0.00</div>
-    </div>
-  </div>
+  <input type="number" id="depositAmount" placeholder="Deposit amount (USD)">
+  <input type="number" id="withdrawAmount" placeholder="Withdraw amount (USD)">
 
-  <!-- DEPOSIT & WITHDRAW -->
-  <div class="form-card">
-    <h3>Wallet Actions</h3>
+  <button class="deposit" onclick="submitDeposit()">Request Deposit</button>
+  <button class="withdraw" onclick="submitWithdraw()">Request Withdraw</button>
 
-    <div class="form-group">
-      <input type="number" id="depositAmount" placeholder="Deposit amount (USD)">
-    </div>
+  <h3>My Transactions</h3>
 
-    <div class="form-group">
-      <input type="number" id="withdrawAmount" placeholder="Withdraw amount (USD)">
-    </div>
-
-    <button class="btn-deposit" onclick="requestDeposit()">Request Deposit</button>
-    <button class="btn-withdraw" onclick="requestWithdraw()">Request Withdraw</button>
-  </div>
-
-  <!-- TRANSACTIONS -->
-  <div class="form-card">
-    <h3>Transaction History</h3>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="txTable"></tbody>
-    </table>
-  </div>
-
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="txTable"></tbody>
+  </table>
 </div>
 
-<footer>
-  © 2025 WorthMoney Investment
-</footer>
-
 <script>
-/* ===== WALLET DISPLAY ===== */
-function updateWallet() {
-  const balance = parseFloat(localStorage.getItem("balance")) || 0;
-  const locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
-  const available = balance - locked;
-
-  document.getElementById("balance").textContent = `$${balance.toFixed(2)}`;
-  document.getElementById("locked").textContent = `$${locked.toFixed(2)}`;
-  document.getElementById("available").textContent = `$${available.toFixed(2)}`;
+/* ===============================
+   CORE STORAGE (DO NOT CHANGE)
+================================ */
+function getTransactions() {
+  return JSON.parse(localStorage.getItem("transactions")) || [];
 }
 
-/* ===== DEPOSIT REQUEST ===== */
-function requestDeposit() {
+function saveTransactions(txs) {
+  localStorage.setItem("transactions", JSON.stringify(txs));
+}
+
+/* ===============================
+   USER ACTIONS
+================================ */
+function submitDeposit() {
   const amount = parseFloat(document.getElementById("depositAmount").value);
   if (!amount || amount <= 0) {
     alert("Enter a valid deposit amount");
     return;
   }
 
-  const txs = JSON.parse(localStorage.getItem("transactions")) || [];
+  const txs = getTransactions();
+
   txs.unshift({
     type: "Deposit",
-    amount,
+    amount: amount,
     status: "Pending",
     date: new Date().toLocaleString()
   });
 
-  localStorage.setItem("transactions", JSON.stringify(txs));
+  saveTransactions(txs);
   document.getElementById("depositAmount").value = "";
-  renderTransactions();
-  alert("Deposit request submitted for admin approval");
+
+  renderTable();
+  alert("Deposit request sent for admin approval");
 }
 
-/* ===== WITHDRAW REQUEST ===== */
-function requestWithdraw() {
+function submitWithdraw() {
   const amount = parseFloat(document.getElementById("withdrawAmount").value);
   if (!amount || amount <= 0) {
     alert("Enter a valid withdrawal amount");
     return;
   }
 
-  let balance = parseFloat(localStorage.getItem("balance")) || 0;
-  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
-  const available = balance - locked;
+  const txs = getTransactions();
 
-  if (amount > available) {
-    alert("Insufficient available balance");
-    return;
-  }
-
-  locked += amount;
-  localStorage.setItem("lockedBalance", locked.toFixed(2));
-
-  const txs = JSON.parse(localStorage.getItem("transactions")) || [];
   txs.unshift({
     type: "Withdraw",
-    amount,
+    amount: amount,
     status: "Pending",
     date: new Date().toLocaleString()
   });
 
-  localStorage.setItem("transactions", JSON.stringify(txs));
+  saveTransactions(txs);
   document.getElementById("withdrawAmount").value = "";
-  updateWallet();
-  renderTransactions();
-  alert("Withdrawal request submitted for admin approval");
+
+  renderTable();
+  alert("Withdrawal request sent for admin approval");
 }
 
-/* ===== TRANSACTION TABLE ===== */
-function renderTransactions() {
+/* ===============================
+   TABLE RENDER
+================================ */
+function renderTable() {
   const table = document.getElementById("txTable");
-  const txs = JSON.parse(localStorage.getItem("transactions")) || [];
+  const txs = getTransactions();
 
   table.innerHTML = "";
 
   if (txs.length === 0) {
-    table.innerHTML = `<tr><td colspan="4">No transactions yet</td></tr>`;
+    table.innerHTML = `<tr><td colspan="4">No transactions</td></tr>`;
     return;
   }
 
   txs.forEach(tx => {
     let cls =
-      tx.status === "Pending" ? "status-pending" :
-      tx.status === "Approved" ? "status-approved" :
-      "status-rejected";
+      tx.status === "Pending" ? "pending" :
+      tx.status === "Approved" ? "approved" :
+      "rejected";
 
     table.innerHTML += `
       <tr>
@@ -313,14 +214,8 @@ function renderTransactions() {
   });
 }
 
-/* ===== LOGOUT ===== */
-function logout() {
-  localStorage.removeItem("isLoggedIn");
-}
-
 /* INIT */
-updateWallet();
-renderTransactions();
+renderTable();
 </script>
 
 </body>
