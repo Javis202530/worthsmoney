@@ -91,3 +91,60 @@ function calculateReturns() {
     countdownEl.innerText = `Capital unlocks in: ${d}d ${h}h ${m}m ${s}s`;
   }
 }
+// existing code above
+
+// ===============================
+// STEP 2: USER DEPOSIT & WITHDRAW
+// ===============================
+
+function requestDeposit() {
+  const amount = parseFloat(document.getElementById("depositAmount").value);
+  if (!amount || amount <= 0) {
+    alert("Enter a valid deposit amount");
+    return;
+  }
+
+  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+  transactions.unshift({
+    type: "Deposit",
+    amount,
+    status: "Pending",
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+  alert("Deposit request submitted for admin approval");
+}
+
+function requestWithdraw() {
+  const amount = parseFloat(document.getElementById("withdrawAmount").value);
+  if (!amount || amount <= 0) {
+    alert("Enter a valid withdrawal amount");
+    return;
+  }
+
+  let balance = parseFloat(localStorage.getItem("balance")) || 0;
+  let locked = parseFloat(localStorage.getItem("lockedBalance")) || 0;
+  const available = balance - locked;
+
+  if (amount > available) {
+    alert("Insufficient available balance");
+    return;
+  }
+
+  locked += amount;
+  localStorage.setItem("lockedBalance", locked.toFixed(2));
+
+  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+  transactions.unshift({
+    type: "Withdraw",
+    amount,
+    status: "Pending",
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+  alert("Withdrawal request submitted for admin approval");
+}
+
