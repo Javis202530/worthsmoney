@@ -124,10 +124,11 @@ footer {
   <strong>WorthMoney Wallet</strong>
   <div class="menu" onclick="toggleMenu()">☰</div>
   <nav id="nav">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="wallet.html">Wallet</a>
-    <a href="index.html">Logout</a>
-  </nav>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="wallet.html">Wallet</a>
+  <a href="#" onclick="logout()">Logout</a>
+</nav>
+
 </header>
 
 <div class="container">
@@ -276,6 +277,39 @@ function submitWithdraw() {
   alert("Withdrawal request submitted");
 }
 
+  document.getElementById("depositMethod").addEventListener("change", function () {
+  const box = document.getElementById("methodInfo");
+  box.innerHTML = "";
+
+  if (this.value === "momo") {
+    const code = momoCodes[Math.floor(Math.random() * momoCodes.length)];
+    box.innerHTML = `
+      <p><b>Mobile Money Payment</b><br>
+      Pay to code: <strong>${code}</strong><br>
+      MTN or Airtel accepted</p>`;
+  }
+
+  if (this.value === "bank") {
+    box.innerHTML = `
+      <p><b>Bank Transfer</b><br>
+      Stanbic / Centenary / Equity<br>
+      Details shown after approval</p>`;
+  }
+
+  if (this.value === "crypto") {
+    box.innerHTML = `
+      <p><b>Crypto Payment</b><br>
+      BTC • ETH • USDT (TRC20)</p>`;
+  }
+
+  if (this.value === "flutterwave") {
+    box.innerHTML = `
+      <p><b>Flutterwave</b><br>
+      Pay securely with Card or MoMo</p>`;
+  }
+});
+}
+
 function render() {
   const txs = getTx();
   let dep = 0, wit = 0;
@@ -306,7 +340,43 @@ function render() {
 }
 
 render();
+  function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+}
+function render() {
+  const txs = getTx();
+  let dep = 0, wit = 0;
+  const table = document.getElementById("txTable");
+  table.innerHTML = "";
+
+  if (!txs.length) {
+    table.innerHTML = `<tr><td colspan="5">No transactions</td></tr>`;
+    return;
+  }
+
+  txs.forEach(t => {
+    if (t.type === "Deposit" && t.status === "Approved") dep += t.amount;
+    if (t.type === "Withdraw" && t.status === "Approved") wit += t.amount;
+
+    table.innerHTML += `
+      <tr>
+        <td>${t.date}</td>
+        <td>${t.type}</td>
+        <td>${t.method}</td>
+        <td>$${t.amount}</td>
+        <td class="${t.status.toLowerCase()}">${t.status}</td>
+      </tr>`;
+  });
+
+  totalDeposits.textContent = `$${dep.toFixed(2)}`;
+  totalWithdraws.textContent = `$${wit.toFixed(2)}`;
+}
+
+render();
+
 </script>
 
 </body>
 </html>
+
