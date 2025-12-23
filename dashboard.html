@@ -110,6 +110,11 @@ footer {
     window.location.href = "auth.html";
   }
 </script>
+<script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "auth.html";
+  }
+</script>
 
 <header>
   <div>WorthMoney Investment</div>
@@ -285,6 +290,7 @@ renderTxPreview();
 
 </body>
 </html>
+
 
 
 
