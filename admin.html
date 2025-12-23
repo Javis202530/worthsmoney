@@ -131,6 +131,25 @@ footer {
       <h3>Approved</h3>
       <p id="approvedTx">0</p>
     </div>
+    <section class="admin-section">
+  <h3>Manage Transactions</h3>
+
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="adminTxTable">
+      <!-- Transactions render here -->
+    </tbody>
+  </table>
+</section>
+
   </div>
 
   <!-- TRANSACTIONS -->
@@ -339,9 +358,56 @@ function closeInvestment(index) {
 /* INIT */
 renderInvestments();
 </script>
+<script>
+  function getTransactions() {
+    return JSON.parse(localStorage.getItem("transactions")) || [];
+  }
+
+  function saveTransactions(txs) {
+    localStorage.setItem("transactions", JSON.stringify(txs));
+  }
+
+  function renderAdminTable() {
+    const table = document.getElementById("adminTxTable");
+    const txs = getTransactions();
+
+    table.innerHTML = "";
+
+    if (txs.length === 0) {
+      table.innerHTML = `
+        <tr>
+          <td colspan="5">No transactions found</td>
+        </tr>
+      `;
+      return;
+    }
+
+    txs.forEach((tx, index) => {
+      table.innerHTML += `
+        <tr>
+          <td>${tx.type}</td>
+          <td>$${tx.amount}</td>
+          <td>${tx.status}</td>
+          <td>${tx.date}</td>
+          <td>
+            ${
+              tx.status === "Pending"
+                ? `<button onclick="approveTx(${index})">Approve</button>
+                   <button onclick="rejectTx(${index})">Reject</button>`
+                : "—"
+            }
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  renderAdminTable();
+</script>
 
 </body>
 </html>
+
 
 
 
