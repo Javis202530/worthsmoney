@@ -3,100 +3,85 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Login / Sign Up | WorthMoney Investment</title>
+<title>Authentication | WorthMoney Investment</title>
+
+
 <style>
+* { box-sizing: border-box; }
 body {
-font-family: Arial, sans-serif;
-background: #0b1c2d;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
 margin: 0;
+font-family: "Segoe UI", sans-serif;
+background: linear-gradient(135deg, #0b1c2d, #123b63);
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
 }
-.auth-box {
-background: #fff;
-width: 380px;
-border-radius: 10px;
-padding: 25px;
+.auth-wrapper {
+background: #ffffff;
+width: 420px;
+border-radius: 12px;
+box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+padding: 28px;
 }
-h2 { text-align: center; margin-bottom: 15px; }
-input, button {
+h2 {
+text-align: center;
+margin-bottom: 20px;
+color: #0b1c2d;
+}
+input {
 width: 100%;
-padding: 10px;
-margin-top: 10px;
+padding: 12px;
+margin-bottom: 12px;
+border: 1px solid #ccc;
+border-radius: 6px;
+font-size: 14px;
 }
 button {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 6px;
 background: #0b5ed7;
 color: white;
-border: none;
+font-size: 15px;
 cursor: pointer;
 }
 button:hover { opacity: 0.9; }
-.switch { text-align: center; margin-top: 10px; }
+.switch {
+text-align: center;
+margin-top: 12px;
+font-size: 14px;
+}
+.switch a { color: #0b5ed7; cursor: pointer; }
 .hidden { display: none; }
+.note {
+font-size: 13px;
+background: #eef4ff;
+padding: 10px;
+border-radius: 6px;
+margin-bottom: 12px;
+}
 </style>
 </head>
 <body>
 
 
-<div class="auth-box">
-<h2 id="title">Create Account</h2>
+<div class="auth-wrapper">
+<h2 id="formTitle">Create Account</h2>
 
 
 <!-- SIGN UP -->
 <div id="signupBox">
-<input id="name" placeholder="Full Name" />
-<input id="email" placeholder="Email" />
-<input id="phone" placeholder="Phone Number" />
-<input id="password" type="password" placeholder="Password" />
-<button onclick="signup()">Sign Up</button>
+<input id="su_name" placeholder="Full Name" />
+<input id="su_email" placeholder="Email Address" />
+<input id="su_phone" placeholder="Phone Number" />
+<input id="su_password" type="password" placeholder="Password" />
+<button onclick="signup()">Create Account</button>
+<div class="note">After signup, you must verify your email before login.</div>
 </div>
 
 
 <!-- LOGIN -->
 <div id="loginBox" class="hidden">
-<input id="loginId" placeholder="Email or Phone" />
-<input id="loginPass" type="password" placeholder="Password" />
-<button onclick="login()">Login</button>
-</div>
-
-
-<div class="switch">
-<span id="switchText">Already have an account?</span>
-<a href="#" onclick="toggle()">Login</a>
-</div>
-</div>
-
-
-<script>
-let isLogin = false;
-
-
-function toggle() {
-isLogin = !isLogin;
-document.getElementById('signupBox').classList.toggle('hidden');
-document.getElementById('loginBox').classList.toggle('hidden');
-document.getElementById('title').innerText = isLogin ? 'Login' : 'Create Account';
-document.getElementById('switchText').innerText = isLogin ? 'No account?' : 'Already have an account?';
-}
-
-
-async function hashPassword(password) {
-const msgUint8 = new TextEncoder().encode(password);
-const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-return Array.from(new Uint8Array(hashBuffer))
-.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-
-async function signup() {
-const name = nameInput.value;
-const email = email.value;
-const phone = phone.value;
-const pass = password.value;
-
-
-if (!name || !email || !phone || !pass) {
-alert('Fill all fields');
-</html>
+<input id="li_id" placeholder="Email or Phone" />
