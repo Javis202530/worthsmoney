@@ -104,6 +104,15 @@ footer {
 <body>
 
 <!-- 🔐 ADMIN GUARD -->
+  <script>
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user || user.role !== "admin") {
+    alert("Access denied. Admins only.");
+    window.location.href = "auth.html";
+  }
+</script>
+
 <script>
   if (!localStorage.getItem("isAdmin")) {
     window.location.href = "admin-login.html";
@@ -364,9 +373,27 @@ function closeInvestment(index) {
 renderInvestments();
 </script>
   
+<script>
+  let timeout;
+  const MAX_IDLE = 15 * 60 * 1000; // 15 minutes
+
+  function resetTimer() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      alert("Session expired. Please login again.");
+      localStorage.removeItem("user");
+      window.location.href = "auth.html";
+    }, MAX_IDLE);
+  }
+
+  window.onload = resetTimer;
+  document.onmousemove = resetTimer;
+  document.onkeypress = resetTimer;
+</script>
 
 </body>
 </html>
+
 
 
 
