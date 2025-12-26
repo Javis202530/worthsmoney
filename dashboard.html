@@ -301,9 +301,27 @@ renderTxPreview();
     document.getElementById("userName").textContent = currentUser.name;
   }
 </script>
+<script>
+  let timeout;
+  const MAX_IDLE = 15 * 60 * 1000; // 15 minutes
+
+  function resetTimer() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      alert("Session expired. Please login again.");
+      localStorage.removeItem("user");
+      window.location.href = "auth.html";
+    }, MAX_IDLE);
+  }
+
+  window.onload = resetTimer;
+  document.onmousemove = resetTimer;
+  document.onkeypress = resetTimer;
+</script>
 
 </body>
 </html>
+
 
 
 
