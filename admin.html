@@ -390,9 +390,15 @@ renderInvestments();
   document.onmousemove = resetTimer;
   document.onkeypress = resetTimer;
 </script>
+<script>
+  window.addEventListener("beforeunload", function () {
+    localStorage.removeItem("user");
+  });
+</script>
 
 </body>
 </html>
+
 
 
 
