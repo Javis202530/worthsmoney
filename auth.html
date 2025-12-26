@@ -1,87 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Authentication | WorthMoney Investment</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication | WorthMoney</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0b1c2d, #0e3a5f);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-<style>
-* { box-sizing: border-box; }
-body {
-margin: 0;
-font-family: "Segoe UI", sans-serif;
-background: linear-gradient(135deg, #0b1c2d, #123b63);
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.auth-wrapper {
-background: #ffffff;
-width: 420px;
-border-radius: 12px;
-box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-padding: 28px;
-}
-h2 {
-text-align: center;
-margin-bottom: 20px;
-color: #0b1c2d;
-}
-input {
-width: 100%;
-padding: 12px;
-margin-bottom: 12px;
-border: 1px solid #ccc;
-border-radius: 6px;
-font-size: 14px;
-}
-button {
-width: 100%;
-padding: 12px;
-border: none;
-border-radius: 6px;
-background: #0b5ed7;
-color: white;
-font-size: 15px;
-cursor: pointer;
-}
-button:hover { opacity: 0.9; }
-.switch {
-text-align: center;
-margin-top: 12px;
-font-size: 14px;
-}
-.switch a { color: #0b5ed7; cursor: pointer; }
-.hidden { display: none; }
-.note {
-font-size: 13px;
-background: #eef4ff;
-padding: 10px;
-border-radius: 6px;
-margin-bottom: 12px;
-}
-</style>
+    .auth-box {
+      background: #fff;
+      width: 380px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #0b1c2d;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 11px;
+      background: #0b5ed7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .switch {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .switch a {
+      color: #0b5ed7;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .note {
+      font-size: 13px;
+      background: #eef4ff;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
+
 <body>
 
+<div class="auth-box">
 
-<div class="auth-wrapper">
-<h2 id="formTitle">Create Account</h2>
+  <h2 id="title">Create Account</h2>
 
+  <!-- SIGNUP -->
+  <div id="signupBox">
+    <input id="su_name" placeholder="Full Name" />
+    <input id="su_email" placeholder="Email" />
+    <input id="su_phone" placeholder="Phone Number" />
+    <input id="su_password" type="password" placeholder="Password" />
+    <button onclick="signup()">Create Account</button>
+    <div class="note">You will verify your email before login.</div>
+  </div>
 
-<!-- SIGN UP -->
-<div id="signupBox">
-<input id="su_name" placeholder="Full Name" />
-<input id="su_email" placeholder="Email Address" />
-<input id="su_phone" placeholder="Phone Number" />
-<input id="su_password" type="password" placeholder="Password" />
-<button onclick="signup()">Create Account</button>
-<div class="note">After signup, you must verify your email before login.</div>
+  <!-- LOGIN -->
+  <div id="loginBox" class="hidden">
+    <input id="li_id" placeholder="Email or Phone" />
+    <input id="li_password" type="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- VERIFY -->
+  <div id="verifyBox" class="hidden">
+    <p class="note">Verify your email to activate your account.</p>
+    <button onclick="verifyEmail()">Verify Email</button>
+  </div>
+
+  <!-- SWITCH -->
+  <div class="switch">
+    <span id="switchText">Already have an account?</span>
+    <a onclick="toggleForm()">Login</a>
+  </div>
+
 </div>
 
+<script>
+  let mode = "signup";
 
-<!-- LOGIN -->
-<div id="loginBox" class="hidden">
-<input id="li_id" placeholder="Email or Phone" />
+  function toggleForm() {
+    mode = mode === "signup" ? "login" : "signup";
+    signupBox.classList.toggle("hidden");
+    loginBox.classList.toggle("hidden");
+    verifyBox.classList.add("hidden");
+    document.getElementById("title").innerText =
+      mode === "signup" ? "Create Account" : "Login";
+    document.getElementById("switchText").innerText =
+      mode === "signup" ? "Already have an account?" : "No account yet?";
+  }
+
+  async function hash(text) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function signup() {
+    const name = su_name.value.trim();
+    const email = su_email.value.trim().toLowerCase();
+    const phone = su_phone.value.trim();
+    const password = su_password.value;
+
+    if (!name || !email || !phone || !password)
+      return alert("Fill all fields");
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.find(u => u.email === email || u.phone === phone))
+      return alert("User already exists");
+
+    const hashed = await hash(password);
+
+    users.push({
+      id: Date.now(),
+      name,
+      email,
+      phone,
+      password: hashed,
+      verified: false
+    });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Account created! Verify your email to continue.");
+    signupBox.classList.add("hidden");
+    verifyBox.classList.remove("hidden");
+  }
+
+  async function verifyEmail() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let last = users[users.length - 1];
+    if (!last) return;
+
+    last.verified = true;
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Email verified successfully!");
+    toggleForm();
+  }
+
+  async function login() {
+    const id = li_id.value.trim();
+    const pass = li_password.value;
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const hashPass = await hash(pass);
+
+    const user = users.find(
+      u => (u.email === id || u.phone === id) && u.password === hashPass
+    );
+
+    if (!user) return alert("Invalid credentials");
+    if (!user.verified) return alert("Verify your email first");
+
+    localStorage.setItem("user", JSON.stringify(user));
+    window.location.href = "dashboard.html";
+  }
+</script>
+
+</body>
+</html>
