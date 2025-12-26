@@ -119,9 +119,11 @@ footer {
 <header>
   <div>WorthMoney Investment</div>
   <nav>
+   <strong><span id="userName"></span></strong>
     <a href="dashboard.html">Dashboard</a>
     <a href="wallet.html">Wallet</a>
-    <a href="#" onclick="confirmLogout()">Logout</a>
+    <button onclick="logout()">Logout</button>
+
   </nav>
 </header>
 
@@ -287,9 +289,22 @@ renderTxPreview();
 
   applyInvestmentROI();
 </script>
+<script>
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "auth.html";
+  }
+</script>
+<script>
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  if (currentUser) {
+    document.getElementById("userName").textContent = currentUser.name;
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
