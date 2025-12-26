@@ -65,5 +65,21 @@ app.post("/login", (req, res) => {
 
   res.send("Login successful");
 });
+app.get("/test-email", async (req, res) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "Test Email Successful",
+      html: "<h2>Your email system is working!</h2>"
+    });
+
+    res.send("✅ Email sent successfully!");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("❌ Email failed");
+  }
+});
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+
