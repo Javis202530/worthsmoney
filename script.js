@@ -171,6 +171,32 @@ async function registerUser() {
     alert("Error connecting to server");
   }
 }
+async function registerUser() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Please fill in all fields");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+    alert(data.message);
+  } catch (err) {
+    alert("Server error");
+    console.error(err);
+  }
+}
+
 
 
 
