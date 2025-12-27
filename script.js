@@ -1,5 +1,5 @@
+const API_URL = "http://localhost:3000";
 let countdownIntervalId = null;
-
 function depositFunds() {
   const depositAmount = prompt("Enter amount to deposit (USD):");
   if (depositAmount && !isNaN(depositAmount) && depositAmount > 0) {
@@ -147,4 +147,5 @@ function requestWithdraw() {
   localStorage.setItem("transactions", JSON.stringify(transactions));
   alert("Withdrawal request submitted for admin approval");
 }
+
 
